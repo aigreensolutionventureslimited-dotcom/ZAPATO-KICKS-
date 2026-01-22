@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Terminal | Zapato Kicks</title>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        :root { --bg: #050505; --accent: #c5a059; --text: #ffffff; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .login-card { background: #0f0f0f; padding: 50px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); width: 100%; max-width: 400px; text-align: center; }
+        h1 { font-family: 'Syne'; font-size: 1.5rem; margin-bottom: 10px; letter-spacing: 1px; }
+        p { color: #666; font-size: 0.8rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
+        input { width: 100%; padding: 15px; margin-bottom: 15px; background: #000; border: 1px solid #222; color: #fff; border-radius: 10px; outline: none; }
+        input:focus { border-color: var(--accent); }
+        .login-btn { width: 100%; padding: 15px; background: var(--accent); color: #000; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
+        .login-btn:hover { opacity: 0.8; transform: translateY(-2px); }
+        #msg { font-size: 0.8rem; margin-top: 15px; color: #ff4444; }
+    </style>
+</head>
+<body>
+    <div class="login-card">
+        <h1>STAFF ACCESS</h1>
+        <p>Terminal Authentication</p>
+        <input type="email" id="email" placeholder="Staff Email">
+        <input type="password" id="pass" placeholder="Security Protocol">
+        <button class="login-btn" onclick="login()">Enter Terminal</button>
+        <div id="msg"></div>
+    </div>
+
+    <script>
+        const _supabase = supabase.createClient('https://rvfuenrggxverrnnmcet.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ2ZnVlbnJnZ3h2ZXJybm5tY2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc4Njc2MTcsImV4cCI6MjA4MzQ0MzYxN30.aKCaWeXR1Le68waDqG_UHiOOZpkZYNC2FTTMutY-CqI');
+
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('pass').value;
+            const btn = document.querySelector('.login-btn');
+            
+            btn.innerText = "VERIFYING...";
+            const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
+
+            if (error) {
+                document.getElementById('msg').innerText = "Access Denied: Invalid Credentials";
+                btn.innerText = "ENTER TERMINAL";
+            } else {
+                window.location.href = "admin.html";
+            }
+        }
+    </script>
+</body>
+</html>
