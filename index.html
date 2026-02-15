@@ -2,190 +2,261 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zapato Kicks | Nigeria's #1 Luxury Sneaker Destination</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Zapato Kicks | Official Store</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
     <style>
-        :root { 
-            --bg: #000000; --accent: #c5a059; --gray: #111; --text: #fff; 
-            --soft-text: #a0a0a0;
+        :root {
+            --bg: #ffffff;
+            --text: #121212;
+            --accent: #c5a059; /* Luxury Gold */
+            --border: #eeeeee;
+            --gray: #888888;
+            --soft-bg: #f6f6f6;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; overflow-x: hidden; }
 
-        /* --- Global Elements --- */
-        .logo { font-family: 'Syne', sans-serif; font-size: 1.5rem; letter-spacing: -1px; text-decoration: none; color: #fff; z-index: 1001; }
-        .logo span { color: var(--accent); }
-
-        /* --- Navbar --- */
+        /* Shopify Style Header */
         nav {
-            position: fixed; top: 0; width: 100%; padding: 25px 5%;
+            position: fixed; top: 0; width: 100%;
+            padding: 15px 5%;
             display: flex; justify-content: space-between; align-items: center;
-            z-index: 1000; background: rgba(0,0,0,0.8); backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000; border-bottom: 1px solid var(--border);
         }
-        .nav-links a { color: #fff; text-decoration: none; margin-left: 25px; font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; }
+        .logo { font-family: 'Syne'; font-weight: 800; letter-spacing: 2px; font-size: 1.2rem; cursor: pointer; }
+        .cart-icon { 
+            position: relative; cursor: pointer; font-weight: 700; font-size: 0.8rem; 
+            background: var(--text); color: #fff; padding: 8px 15px; border-radius: 2px;
+        }
 
-        /* --- Hero Slider --- */
+        /* Banner */
         .hero {
-            height: 100vh; width: 100%; position: relative;
-            display: flex; align-items: center; overflow: hidden;
+            margin-top: 60px; height: 40vh; background: var(--soft-bg);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-align: center; border-bottom: 1px solid var(--border);
         }
-        .slide {
-            position: absolute; inset: 0; opacity: 0; transition: 1.5s ease;
-            display: flex; align-items: center; padding: 0 7%;
-        }
-        .slide.active { opacity: 1; }
+        .hero h2 { font-family: 'Syne'; font-size: 2rem; text-transform: uppercase; }
 
-        .slide-content { z-index: 5; max-width: 700px; }
-        .slide-tag { color: var(--accent); font-weight: 800; letter-spacing: 4px; font-size: 0.7rem; text-transform: uppercase; margin-bottom: 15px; display: block; }
-        .slide-content h1 { font-family: 'Syne'; font-size: clamp(3rem, 10vw, 7rem); line-height: 0.9; margin-bottom: 30px; }
-        
-        .slide-img {
-            position: absolute; right: 5%; width: 45%; 
-            filter: drop-shadow(0 30px 50px rgba(197, 160, 89, 0.2));
-            transform: translateX(100px); transition: 1.5s cubic-bezier(0.2, 1, 0.3, 1);
+        /* Navigation Filters */
+        .filters {
+            display: flex; justify-content: center; gap: 20px; 
+            padding: 20px 5%; position: sticky; top: 60px; background: #fff; z-index: 900;
+            overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--border);
         }
-        .slide.active .slide-img { transform: translateX(0) rotate(-5deg); }
+        .filters::-webkit-scrollbar { display: none; }
+        .f-btn { 
+            background: none; border: none; color: var(--gray); font-size: 0.75rem; 
+            font-weight: 600; cursor: pointer; text-transform: uppercase; white-space: nowrap;
+        }
+        .f-btn.active { color: var(--text); border-bottom: 2px solid var(--text); }
 
-        .btn-gold { 
-            padding: 18px 40px; background: var(--accent); color: #000; 
-            text-decoration: none; font-weight: 800; border-radius: 4px; 
-            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;
+        /* Shopify Product Grid */
+        .grid {
+            display: grid; grid-template-columns: repeat(2, 1fr);
+            gap: 15px; padding: 30px 5% 100px;
+        }
+        @media (min-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 30px; } }
+
+        .product-card { cursor: pointer; transition: 0.3s; }
+        .product-card:hover { opacity: 0.8; }
+        .product-card img {
+            width: 100%; aspect-ratio: 1/1; object-fit: cover;
+            background: var(--soft-bg); border-radius: 4px;
+        }
+        .p-info { margin-top: 12px; }
+        .p-name { font-size: 0.85rem; font-weight: 500; text-transform: uppercase; letter-spacing: 0.5px; }
+        .p-price { font-size: 0.9rem; color: var(--gray); margin-top: 4px; }
+
+        /* Product Detail Modal (Shopify Slide-over style) */
+        .modal {
+            position: fixed; inset: 0; background: #fff;
+            display: none; z-index: 2000; overflow-y: auto;
+        }
+        .modal-content { max-width: 1200px; margin: 0 auto; padding: 80px 5% 40px; display: flex; flex-direction: column; gap: 40px; }
+        @media (min-width: 768px) { .modal-content { flex-direction: row; padding-top: 120px; } }
+
+        .image-viewer { flex: 1.2; }
+        .slider-track { display: flex; overflow-x: auto; snap-type: x mandatory; scrollbar-width: none; border-radius: 8px; }
+        .slider-track img { width: 100%; flex-shrink: 0; snap-align: start; background: var(--soft-bg); }
+
+        .details-pane { flex: 1; }
+        .details-pane h1 { font-family: 'Syne'; font-size: 2rem; margin-bottom: 10px; }
+        .details-pane .price { font-size: 1.5rem; color: var(--accent); font-weight: 700; margin-bottom: 25px; }
+        .details-pane .desc { font-size: 0.95rem; color: #555; margin-bottom: 30px; line-height: 1.8; }
+
+        .buy-btn {
+            width: 100%; padding: 20px; background: var(--text); color: #fff;
+            border: none; font-weight: 700; cursor: pointer; text-transform: uppercase;
+            letter-spacing: 1px; margin-bottom: 10px;
         }
 
-        /* --- Nigeria Trust Section --- */
-        .trust-bar {
-            background: var(--gray); display: flex; justify-content: space-around;
-            padding: 40px 5%; border-top: 1px solid #222; border-bottom: 1px solid #222;
+        /* Checkout Overlay */
+        .overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.9);
+            display: none; z-index: 3000; align-items: center; justify-content: center; padding: 20px;
         }
-        .trust-item { text-align: center; }
-        .trust-item h4 { font-family: 'Syne'; color: var(--accent); font-size: 1.2rem; }
-        .trust-item p { font-size: 0.7rem; color: var(--soft-text); text-transform: uppercase; margin-top: 5px; }
-
-        /* --- Featured --- */
-        .featured { padding: 100px 7%; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 50px; }
-        .f-card { 
-            height: 500px; background: #080808; border-radius: 2px; border: 1px solid #1a1a1a;
-            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+        .checkout-card {
+            background: #fff; padding: 35px; border-radius: 8px; width: 100%; max-width: 450px;
         }
-        .f-card img { width: 70%; transition: 0.8s; }
-        .f-card:hover img { transform: scale(1.1); }
-        .f-card h3 { position: absolute; bottom: 30px; left: 30px; font-family: 'Syne'; font-size: 2rem; }
-
-        /* --- Story --- */
-        .story { padding: 100px 7%; background: #050505; display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
-        .story img { width: 100%; filter: grayscale(1); border-radius: 4px; }
-        .story-text h2 { font-family: 'Syne'; font-size: 3.5rem; margin-bottom: 30px; }
-        .story-text p { color: var(--soft-text); line-height: 1.8; margin-bottom: 20px; }
-
-        /* --- Mobile Responsive --- */
-        @media (max-width: 900px) {
-            .slide-img { display: none; }
-            .grid, .story { grid-template-columns: 1fr; }
-            .nav-links { display: none; }
-            .trust-bar { flex-direction: column; gap: 30px; }
+        .bank-details {
+            background: var(--soft-bg); padding: 20px; border-left: 4px solid var(--accent); margin: 20px 0;
         }
+        input {
+            width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 4px; margin-bottom: 12px; font-size: 1rem;
+        }
+
+        .close-btn { position: absolute; top: 25px; right: 25px; font-size: 1.5rem; cursor: pointer; }
     </style>
 </head>
+
 <body>
 
-    <nav>
-        <a href="index.html" class="logo" id="logo">ZAPATO<span>KICKS</span></a>
-        <div class="nav-links">
-            <a href="shop.html">Shop</a>
-            <a href="#featured">Featured</a>
-            <a href="shop.html">Cart</a>
-        </div>
-    </nav>
+<nav>
+    <div class="logo" onclick="location.reload()">ZAPATO KICKS</div>
+    <div class="cart-icon" onclick="openCart()">VAULT (<span id="cart-count">0</span>)</div>
+</nav>
 
-    <section class="hero">
-        <div class="slide active">
-            <div class="slide-content">
-                <span class="slide-tag">New Season 2026</span>
-                <h1>THE KINGS OF<br>THE STREET.</h1>
-                <a href="shop.html" class="btn-gold">Explore Collection</a>
-            </div>
-            <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800" class="slide-img" alt="Shoe 1">
-        </div>
-        <div class="slide">
-            <div class="slide-content">
-                <span class="slide-tag">Elite Corporate</span>
-                <h1>WALK LIKE<br>A BOSS.</h1>
-                <a href="shop.html" class="btn-gold">Shop Corporate</a>
-            </div>
-            <img src="https://images.unsplash.com/photo-1614252235316-8c857d38b5f4?w=800" class="slide-img" alt="Shoe 2">
-        </div>
-    </section>
+<div class="hero">
+    <h2>The Abuja Vault</h2>
+    <p style="color:var(--gray); font-size: 0.8rem; letter-spacing: 2px;">PREMIUM SNEAKERS & FOOTWEAR</p>
+</div>
 
-    <div class="trust-bar">
-        <div class="trust-item">
-            <h4>NATIONWIDE</h4>
-            <p>Delivery Across Nigeria</p>
+<div class="filters">
+    <button class="f-btn active" onclick="filterData('All', this)">All Items</button>
+    <button class="f-btn" onclick="filterData('Sneakers', this)">Sneakers</button>
+    <button class="f-btn" onclick="filterData('Corporate', this)">Corporate</button>
+    <button class="f-btn" onclick="filterData('Palms', this)">Palms</button>
+    <button class="f-btn" onclick="filterData('Slides', this)">Slides</button>
+</div>
+
+<div class="grid" id="product-grid"></div>
+
+<div id="productModal" class="modal"></div>
+
+<div id="checkoutModal" class="overlay">
+    <div class="checkout-card">
+        <h2 style="font-family:'Syne';">CHECKOUT</h2>
+        <div class="bank-details">
+            <p style="font-size: 0.6rem; color: var(--gray); text-transform: uppercase;">Transfer to Moniepoint MFB</p>
+            <h4 style="font-size: 1.2rem; margin: 5px 0;">8164082531</h4>
+            <p style="font-size: 0.6rem; color: var(--gray); text-transform: uppercase;">Account Name</p>
+            <h4 style="color:var(--accent)">ZAPATO KICKS</h4>
         </div>
-        <div class="trust-item">
-            <h4>100% AUTHENTIC</h4>
-            <p>Guaranteed Quality</p>
-        </div>
-        <div class="trust-item">
-            <h4>24/7 SUPPORT</h4>
-            <p>Order via WhatsApp</p>
-        </div>
+        <input type="text" id="custName" placeholder="Full Name">
+        <input type="text" id="custAddr" placeholder="Abuja Delivery Address">
+        <button class="buy-btn" onclick="confirmOrder()">I HAVE PAID (WHATSAPP)</button>
+        <button onclick="closeCart()" style="background:none; border:none; color:var(--gray); width:100%; margin-top:10px; cursor:pointer; font-size:0.75rem;">RETURN TO SHOP</button>
     </div>
+</div>
 
-    <section class="featured" id="featured">
-        <h2 style="font-family: 'Syne'; font-size: 3rem;">THE VAULT</h2>
-        <div class="grid">
-            <div class="f-card">
-                <h3>URBAN<br>SNKR</h3>
-                <img src="https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=600">
+<script>
+const SB_URL = 'https://rvfuenrggxverrnnmcet.supabase.co';
+const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ2ZnVlbnJnZ3h2ZXJybm5tY2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc4Njc2MTcsImV4cCI6MjA4MzQ0MzYxN30.aKCaWeXR1Le68waDqG_UHiOOZpkZYNC2FTTMutY-CqI';
+const supa = supabase.createClient(SB_URL, SB_KEY);
+
+let allProducts = [], cart = [];
+
+async function loadStore() {
+    const { data, error } = await supa.from('products').select('*').order('created_at', { ascending: false });
+    if (error) return console.error(error);
+    allProducts = data;
+    renderGrid(allProducts);
+}
+
+function renderGrid(items) {
+    const grid = document.getElementById('product-grid');
+    grid.innerHTML = items.map(p => {
+        const images = p.image_url ? p.image_url.split(',') : [];
+        return `
+            <div class="product-card" onclick="showProduct(${p.id})">
+                <img src="${images[0] || 'https://via.placeholder.com/400'}">
+                <div class="p-info">
+                    <div class="p-name">${p.name}</div>
+                    <div class="p-price">₦${Number(p.price).toLocaleString()}</div>
+                </div>
             </div>
-            <div class="f-card">
-                <h3>OFFICE<br>ELITE</h3>
-                <img src="https://images.unsplash.com/photo-1533867617858-e7b97e060509?w=600">
+        `;
+    }).join('');
+}
+
+function showProduct(id) {
+    const p = allProducts.find(item => item.id === id);
+    const images = p.image_url.split(',');
+    const modal = document.getElementById('productModal');
+
+    modal.innerHTML = `
+        <div class="modal-content">
+            <span class="close-btn" onclick="document.getElementById('productModal').style.display='none'">&times;</span>
+            <div class="image-viewer">
+                <div class="slider-track">
+                    ${images.map(img => `<img src="${img}">`).join('')}
+                </div>
+                <p style="text-align:center; font-size:0.6rem; color:#aaa; margin-top:15px;">← SWIPE FOR MORE PHOTOS →</p>
+            </div>
+            <div class="details-pane">
+                <p style="text-transform:uppercase; color:var(--accent); font-weight:700; font-size:0.7rem; letter-spacing:2px;">${p.cat}</p>
+                <h1>${p.name}</h1>
+                <div class="price">₦${Number(p.price).toLocaleString()}</div>
+                <div class="desc">
+                    Premium quality footwear curated for the Abuja elite. This item features superior craftsmanship and the signature Zapato Kicks style.
+                </div>
+                <button class="buy-btn" onclick="addToVault(${p.id})">ADD TO VAULT</button>
+                <button class="buy-btn" style="background:#fff; color:#000; border:1px solid #000;" onclick="document.getElementById('productModal').style.display='none'">BACK TO COLLECTION</button>
             </div>
         </div>
-    </section>
+    `;
+    modal.style.display = 'block';
+    window.scrollTo(0, 0);
+}
 
-    <section class="story">
-        <img src="https://images.unsplash.com/photo-1556906781-9a412961c28c?w=800">
-        <div class="story-text">
-            <h2>OUR<br>LEGACY.</h2>
-            <p>From the streets of Lagos to the boardrooms of Abuja, Zapato Kicks is more than a store. It is a movement for those who refuse to blend in.</p>
-            <p>We curate only the rarest silhouettes and the finest leathers, ensuring that when you step out, you make a statement that lasts.</p>
-            <a href="shop.html" style="color: var(--accent); text-decoration: none; font-weight: 800; letter-spacing: 2px;">DISCOVER MORE →</a>
-        </div>
-    </section>
+function addToVault(id) {
+    const p = allProducts.find(item => item.id === id);
+    cart.push(p);
+    document.getElementById('cart-count').innerText = cart.length;
+    document.getElementById('productModal').style.display = 'none';
+    alert("Added to Vault!");
+}
 
-    <footer style="padding: 50px; text-align: center; border-top: 1px solid #111; color: #444; font-size: 0.8rem;">
-        &copy; 2026 ZAPATO KICKS NIGERIA. BUILT FOR THE BOLD.
-    </footer>
+function openCart() {
+    if(cart.length === 0) return alert("Your vault is empty.");
+    document.getElementById('checkoutModal').style.display = 'flex';
+}
 
-    <script>
-        // --- 1. SLIDER LOGIC ---
-        const slides = document.querySelectorAll('.slide');
-        let currentSlide = 0;
+function closeCart() {
+    document.getElementById('checkoutModal').style.display = 'none';
+}
 
-        function nextSlide() {
-            slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }
-        setInterval(nextSlide, 5000);
+function confirmOrder() {
+    const name = document.getElementById('custName').value;
+    const addr = document.getElementById('custAddr').value;
+    if(!name || !addr) return alert("Please enter delivery details.");
 
-        // --- 2. SECRET ADMIN LOGIC ---
-        let clicks = 0;
-        document.getElementById('logo').addEventListener('click', (e) => {
-            e.preventDefault();
-            clicks++;
-            if(clicks === 5) {
-                alert("Terminal Unlocked: Redirecting to Admin Dashboard");
-                window.location.href = "admin.html";
-            }
-            setTimeout(() => clicks = 0, 3000);
-        });
-    </script>
+    const itemsList = cart.map(i => `- ${i.name}`).join('%0A');
+    const total = cart.reduce((sum, i) => sum + Number(i.price), 0);
+    const waText = `*ZAPATO KICKS ORDER*%0A*Customer:* ${name}%0A*Address:* ${addr}%0A%0A*Items:*%0A${itemsList}%0A%0A*Total:* ₦${total.toLocaleString()}%0A%0A_I have made the transfer to Moniepoint._`;
+    
+    window.open(`https://wa.me/2349061996801?text=${waText}`);
+    cart = [];
+    document.getElementById('cart-count').innerText = "0";
+    closeCart();
+}
+
+function filterData(cat, btn) {
+    document.querySelectorAll('.f-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const filtered = cat === 'All' ? allProducts : allProducts.filter(p => p.cat === cat);
+    renderGrid(filtered);
+}
+
+loadStore();
+</script>
+
 </body>
 </html>
