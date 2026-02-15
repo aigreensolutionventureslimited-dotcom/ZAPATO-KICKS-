@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Zapato Kicks | Premium Vault</title>
+    <title>Zapato Kicks | The Luxury Vault</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -13,117 +13,96 @@
             --bg: #ffffff;
             --text: #121212;
             --accent: #b08d57;
-            --border: #e5e5e5;
-            --soft: #f4f4f4;
+            --border: #f0f0f0;
+            --soft: #f8f8f8;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
 
-        /* Announcement Bar */
-        .announcement { background: #000; color: #fff; text-align: center; padding: 8px; font-size: 0.6rem; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; }
+        .announcement { background: #000; color: #fff; text-align: center; padding: 10px; font-size: 0.55rem; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; }
 
-        /* Shopify Header */
         header {
-            position: sticky; top: 0; background: #fff; z-index: 1000;
+            position: sticky; top: 0; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); z-index: 1000;
             display: flex; justify-content: space-between; align-items: center;
-            padding: 15px 5%; border-bottom: 1px solid var(--border);
+            padding: 18px 6%; border-bottom: 1px solid var(--border);
         }
-        .logo { font-family: 'Syne'; font-weight: 800; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; }
-        .nav-icons { display: flex; gap: 20px; align-items: center; }
-        .cart-toggle { cursor: pointer; font-size: 0.65rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Hero Section */
-        .hero { position: relative; width: 100%; height: 50vh; background: #000; overflow: hidden; display: flex; align-items: center; justify-content: center; text-align: center; }
-        .hero-content { color: #fff; z-index: 2; }
-        .hero-content h1 { font-family: 'Syne'; font-size: 1.8rem; margin-bottom: 10px; }
-        .hero-content p { font-size: 0.7rem; letter-spacing: 2px; color: #ccc; text-transform: uppercase; }
+        .logo { font-family: 'Syne'; font-weight: 800; font-size: 0.9rem; letter-spacing: 3px; text-transform: uppercase; }
+        .cart-toggle { cursor: pointer; font-size: 0.6rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1.5px solid #000; padding-bottom: 2px; }
 
         /* Shopify Filter bar */
         .shopify-nav {
-            display: flex; justify-content: center; gap: 30px; padding: 25px 5%;
+            display: flex; justify-content: center; gap: 35px; padding: 20px 5%;
             border-bottom: 1px solid var(--border); overflow-x: auto; white-space: nowrap;
         }
         .shopify-nav::-webkit-scrollbar { display: none; }
-        .cat-btn { background: none; border: none; font-size: 0.65rem; font-weight: 500; color: var(--gray); cursor: pointer; text-transform: uppercase; letter-spacing: 1px; }
-        .cat-btn.active { font-weight: 700; color: #000; border-bottom: 1px solid #000; }
+        .cat-btn { background: none; border: none; font-size: 0.6rem; font-weight: 500; color: #999; cursor: pointer; text-transform: uppercase; letter-spacing: 1.5px; transition: 0.3s; }
+        .cat-btn.active { color: #000; font-weight: 700; }
 
-        /* Product Grid */
-        .main-grid {
-            display: grid; grid-template-columns: repeat(2, 1fr);
-            gap: 1px; background: var(--border); border-bottom: 1px solid var(--border);
-        }
-        @media (min-width: 768px) { .main-grid { grid-template-columns: repeat(4, 1fr); } }
+        /* Grid - 2 Column Mobile, 4 Column Desktop */
+        .main-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 15px 4% 100px; }
+        @media (min-width: 768px) { .main-grid { grid-template-columns: repeat(4, 1fr); gap: 30px; } }
 
-        .product-item { background: #fff; padding: 20px 15px; cursor: pointer; transition: 0.3s; }
-        .product-item:hover { opacity: 0.8; }
-        .product-item img { width: 100%; aspect-ratio: 1/1; object-fit: cover; margin-bottom: 15px; }
-        .p-title { font-size: 0.7rem; font-weight: 400; text-transform: uppercase; margin-bottom: 5px; letter-spacing: 0.5px; }
-        .p-price { font-size: 0.75rem; font-weight: 600; color: #121212; }
+        .product-item { background: #fff; cursor: pointer; }
+        .product-item img { width: 100%; aspect-ratio: 1/1.1; object-fit: cover; background: var(--soft); transition: transform 0.5s ease; }
+        .product-item:hover img { transform: scale(1.02); }
+        .p-title { font-size: 0.65rem; font-weight: 400; text-transform: uppercase; margin-top: 12px; letter-spacing: 0.8px; color: #444; }
+        .p-price { font-size: 0.75rem; font-weight: 600; margin-top: 4px; color: #000; }
 
-        /* Shopify Cart Drawer (Slide-out) */
+        /* Cart Drawer */
         .cart-drawer {
-            position: fixed; right: -100%; top: 0; width: 350px; height: 100%;
+            position: fixed; right: -100%; top: 0; width: 100%; max-width: 400px; height: 100%;
             background: #fff; z-index: 2000; transition: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: -10px 0 30px rgba(0,0,0,0.05); padding: 40px 25px;
-            display: flex; flex-direction: column;
+            padding: 40px 30px; display: flex; flex-direction: column;
         }
         .cart-drawer.open { right: 0; }
-        .cart-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 20px; margin-bottom: 20px; }
-        .cart-title { font-family: 'Syne'; font-size: 1rem; }
-        .cart-close { cursor: pointer; font-size: 1.2rem; }
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+        .cart-title { font-family: 'Syne'; font-size: 0.9rem; letter-spacing: 2px; }
         
         .cart-items { flex: 1; overflow-y: auto; }
-        .cart-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; }
-        .cart-item img { width: 60px; height: 60px; object-fit: cover; }
+        .cart-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; border-bottom: 1px solid var(--border); padding-bottom: 15px; }
+        .cart-item img { width: 70px; height: 70px; object-fit: cover; }
         .cart-item-info { font-size: 0.7rem; }
 
-        .cart-footer { border-top: 1px solid var(--border); padding-top: 20px; }
-        .total-row { display: flex; justify-content: space-between; font-weight: 600; margin-bottom: 20px; font-size: 0.85rem; }
-
-        /* Checkout Layer */
-        .btn-shopify {
-            width: 100%; padding: 18px; background: #000; color: #fff;
-            border: none; font-size: 0.7rem; font-weight: 600; letter-spacing: 2px;
-            text-transform: uppercase; cursor: pointer;
+        /* Moniepoint Payment Box */
+        .payment-vault {
+            background: #fcfaf6; border: 1px solid #e8dfcc; padding: 20px; margin-bottom: 20px;
         }
-        
-        /* Modal for Product Details */
-        .p-modal { position: fixed; inset: 0; background: #fff; display: none; z-index: 3000; overflow-y: auto; }
-        .p-modal-content { max-width: 1100px; margin: auto; padding: 100px 5% 50px; display: flex; flex-direction: column; gap: 40px; }
-        @media (min-width: 768px) { .p-modal-content { flex-direction: row; } }
+        .payment-vault label { font-size: 0.5rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .payment-vault p { font-size: 0.9rem; font-weight: 600; margin-bottom: 10px; letter-spacing: 0.5px; }
 
-        .img-col { flex: 1.5; display: flex; overflow-x: auto; snap-type: x mandatory; gap: 10px; }
-        .img-col img { width: 100%; flex-shrink: 0; snap-align: start; background: var(--soft); }
-        .info-col { flex: 1; }
-        .info-col h2 { font-family: 'Inter'; font-weight: 400; font-size: 1.4rem; text-transform: uppercase; margin-bottom: 10px; }
-        .info-col .price-tag { font-size: 1.1rem; font-weight: 600; margin-bottom: 30px; display: block; }
+        .btn-shopify {
+            width: 100%; padding: 20px; background: #000; color: #fff;
+            border: none; font-size: 0.65rem; font-weight: 700; letter-spacing: 2px;
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+        }
+        .btn-shopify:active { transform: scale(0.98); }
         
-        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); display: none; z-index: 1500; }
-        input { width: 100%; padding: 15px; border: 1px solid var(--border); margin-bottom: 10px; font-family: 'Inter'; font-size: 0.8rem; }
+        /* Modal */
+        .p-modal { position: fixed; inset: 0; background: #fff; display: none; z-index: 3000; overflow-y: auto; }
+        .p-modal-content { max-width: 1100px; margin: auto; padding: 80px 6% 50px; display: flex; flex-direction: column; gap: 40px; }
+        @media (min-width: 768px) { .p-modal-content { flex-direction: row; align-items: center; } }
+
+        .img-col { flex: 1.3; display: flex; overflow-x: auto; snap-type: x mandatory; scrollbar-width: none; }
+        .img-col img { width: 100%; flex-shrink: 0; snap-align: start; }
+        .info-col { flex: 1; }
+        .info-col h2 { font-family: 'Inter'; font-weight: 400; font-size: 1.3rem; text-transform: uppercase; margin-bottom: 10px; letter-spacing: 1px; }
+        
+        .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); display: none; z-index: 1500; }
+        input { width: 100%; padding: 16px; border: 1px solid var(--border); background: var(--soft); margin-bottom: 10px; font-size: 0.8rem; border-radius: 0; }
     </style>
 </head>
 <body>
 
-<div class="announcement">Free delivery in Abuja on orders above ₦250k</div>
+<div class="announcement">AUTHENTICITY GUARANTEED • ABUJA FAST DELIVERY</div>
 
 <header>
     <div class="logo">ZAPATO KICKS</div>
-    <div class="nav-icons">
-        <div class="cart-toggle" onclick="toggleCart(true)">Cart (<span id="cart-count">0</span>)</div>
-    </div>
+    <div class="cart-toggle" onclick="toggleCart(true)">VAULT [<span id="cart-count">0</span>]</div>
 </header>
 
-<section class="hero">
-    <div class="hero-content">
-        <p>New Collection</p>
-        <h1>THE ABUJA DROP</h1>
-        <button onclick="window.scrollTo(0, 600)" style="background:#fff; border:none; padding: 12px 25px; font-size:0.6rem; font-weight:700; text-transform:uppercase; letter-spacing:1px; cursor:pointer;">Shop Now</button>
-    </div>
-</section>
-
 <div class="shopify-nav">
-    <button class="cat-btn active" onclick="filter('All', this)">All</button>
+    <button class="cat-btn active" onclick="filter('All', this)">Shop All</button>
     <button class="cat-btn" onclick="filter('Sneakers', this)">Sneakers</button>
     <button class="cat-btn" onclick="filter('Corporate', this)">Corporate</button>
     <button class="cat-btn" onclick="filter('Palms', this)">Palms</button>
@@ -135,18 +114,28 @@
 <div class="overlay" id="cartOverlay" onclick="toggleCart(false)"></div>
 <div class="cart-drawer" id="cartDrawer">
     <div class="cart-header">
-        <div class="cart-title">YOUR CART</div>
-        <div class="cart-close" onclick="toggleCart(false)">&times;</div>
+        <div class="cart-title">YOUR VAULT</div>
+        <div onclick="toggleCart(false)" style="cursor:pointer; font-size:1.2rem;">&times;</div>
     </div>
+    
     <div class="cart-items" id="cart-list"></div>
+
+    <div class="payment-vault">
+        <label>Transfer to Moniepoint MFB</label>
+        <p>8164082531</p>
+        <label>Account Name</label>
+        <p>ZAPATO KICKS</p>
+        <p style="font-size: 0.55rem; color: #888; font-style: italic;">Kindly make payment before confirming your order.</p>
+    </div>
+
     <div class="cart-footer">
-        <div class="total-row">
-            <span>Estimated Total</span>
+        <div style="display:flex; justify-content:space-between; margin-bottom:20px; font-weight:600; font-size:0.8rem;">
+            <span>Total</span>
             <span id="cart-total">₦0</span>
         </div>
         <input type="text" id="custName" placeholder="Full Name">
-        <input type="text" id="custAddr" placeholder="Abuja Delivery Address">
-        <button class="btn-shopify" onclick="checkout()">Checkout via WhatsApp</button>
+        <input type="text" id="custAddr" placeholder="Delivery Address">
+        <button class="btn-shopify" onclick="checkout()">Confirm & Order via WhatsApp</button>
     </div>
 </div>
 
@@ -158,8 +147,8 @@ const SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJ
 const supa = supabase.createClient(SB_URL, SB_KEY);
 
 let products = [], cart = [];
-const ref = new URLSearchParams(window.location.search).get('ref') || localStorage.getItem('zap_ref') || 'Direct';
-if(ref !== 'Direct') localStorage.setItem('zap_ref', ref);
+const ref = new URLSearchParams(window.location.search).get('ref') || localStorage.getItem('zap_ref') || 'Organic';
+if(ref !== 'Organic') localStorage.setItem('zap_ref', ref);
 
 async function load() {
     const { data } = await supa.from('products').select('*').order('created_at', { ascending: false });
@@ -186,11 +175,13 @@ function openDetail(id) {
             <span onclick="document.getElementById('productModal').style.display='none'" style="position:absolute; top:30px; right:30px; font-size:1.5rem; cursor:pointer;">&times;</span>
             <div class="img-col">${imgs.map(i => `<img src="${i}">`).join('')}</div>
             <div class="info-col">
-                <p style="font-size:0.55rem; color:var(--accent); font-weight:700; letter-spacing:2px; margin-bottom:10px;">ZAPATO KICKS</p>
+                <p style="font-size:0.5rem; color:var(--accent); font-weight:700; letter-spacing:2px; margin-bottom:12px;">NEW ARRIVAL</p>
                 <h2>${p.name}</h2>
-                <span class="price-tag">₦${Number(p.price).toLocaleString()}</span>
-                <p style="font-size:0.75rem; color:#666; line-height:1.7; margin-bottom:30px;">This exclusive release features high-quality materials and a precision fit. Part of our seasonal vault collection.</p>
-                <button class="btn-shopify" onclick="addToCart(${p.id})">Add to Cart</button>
+                <span style="font-size:1.1rem; font-weight:600; display:block; margin-bottom:25px;">₦${Number(p.price).toLocaleString()}</span>
+                <p style="font-size:0.75rem; color:#666; line-height:1.8; margin-bottom:30px; border-top: 1px solid #f0f0f0; padding-top:20px;">
+                    Hand-selected for the Zapato collection. This product meets our strict standards for comfort, style, and luxury durability.
+                </p>
+                <button class="btn-shopify" onclick="addToCart(${p.id})">ADD TO VAULT</button>
             </div>
         </div>
     `;
@@ -214,9 +205,9 @@ function updateCart() {
         <div class="cart-item">
             <img src="${item.image_url.split(',')[0]}">
             <div class="cart-item-info">
-                <strong>${item.name}</strong><br>
-                ₦${Number(item.price).toLocaleString()}<br>
-                <span onclick="removeFromCart(${idx})" style="text-decoration:underline; font-size:0.55rem; cursor:pointer;">Remove</span>
+                <p style="font-weight:600; text-transform:uppercase; margin-bottom:4px;">${item.name}</p>
+                <p style="color:#888;">₦${Number(item.price).toLocaleString()}</p>
+                <p onclick="removeFromCart(${idx})" style="text-decoration:underline; font-size:0.55rem; cursor:pointer; margin-top:8px; color:red;">Remove</p>
             </div>
         </div>
     `).join('');
@@ -235,14 +226,14 @@ function toggleCart(open) {
 async function checkout() {
     const name = document.getElementById('custName').value;
     const addr = document.getElementById('custAddr').value;
-    if(!name || !addr) return alert("Missing Info");
+    if(!name || !addr) return alert("Please provide delivery details.");
 
     const total = cart.reduce((s, v) => s + Number(v.price), 0);
     const items = cart.map(c => `- ${c.name}`).join('%0A');
     
     await supa.from('sales').insert([{ product_name: cart.map(c => c.name).join(','), amount: total, affiliate_code: ref }]);
     
-    const msg = `*ZAPATO KICKS ORDER*%0A*Ref:* ${ref}%0A*Name:* ${name}%0A*Address:* ${addr}%0A%0A*Items:*%0A${items}%0A%0A*Total:* ₦${total.toLocaleString()}`;
+    const msg = `*ZAPATO KICKS ORDER*%0A*Ref:* ${ref}%0A*Name:* ${name}%0A*Address:* ${addr}%0A%0A*Items:*%0A${items}%0A%0A*Total:* ₦${total.toLocaleString()}%0A%0A_Note: I have completed the transfer to Moniepoint._`;
     window.open(`https://wa.me/2349061996801?text=${msg}`);
     cart = []; updateCart(); toggleCart(false);
 }
