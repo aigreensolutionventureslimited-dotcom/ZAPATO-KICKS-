@@ -21,9 +21,25 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; overflow-x: hidden; }
 
-        /* Navigation */
+        /* Restored Announcement Bar */
+        .announcement {
+            background: var(--text);
+            color: #fff;
+            text-align: center;
+            padding: 8px 0;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1100;
+        }
+
+        /* Adjusted Navigation for Announcement */
         nav {
-            position: fixed; top: 0; width: 100%;
+            position: fixed; top: 31px; width: 100%;
             padding: 15px 5%;
             display: flex; justify-content: space-between; align-items: center;
             background: rgba(255, 255, 255, 0.98);
@@ -37,10 +53,9 @@
             padding: 10px 18px; border-radius: 2px; cursor: pointer;
         }
 
-        /* Filter Section */
         .filters {
             display: flex; gap: 20px; 
-            padding: 90px 5% 20px;
+            padding: 130px 5% 20px;
             overflow-x: auto;
             scrollbar-width: none;
             border-bottom: 1px solid var(--border);
@@ -53,7 +68,6 @@
         }
         .f-btn.active { color: var(--text); border-bottom: 2px solid var(--text); }
 
-        /* Product Grid */
         .grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -71,7 +85,7 @@
         .card-name { font-size: 0.85rem; margin-top: 12px; font-weight: 500; text-transform: uppercase; }
         .card-price { font-size: 0.85rem; color: var(--gray); margin-top: 4px; }
 
-        /* Product Modal */
+        /* Modal & Size Selection */
         .modal {
             position: fixed; inset: 0; background: #fff;
             display: none; z-index: 2000; overflow-y: auto;
@@ -79,28 +93,19 @@
         .modal-content { max-width: 1100px; margin: 0 auto; padding: 80px 5% 40px; display: flex; flex-direction: column; gap: 30px; }
         @media (min-width: 768px) { .modal-content { flex-direction: row; padding-top: 120px; } }
 
-        /* Size Selector Styling */
-        .size-header { font-size: 0.75rem; font-weight: 700; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 1px; }
+        .size-header { font-size: 0.75rem; font-weight: 700; margin: 20px 0 10px; text-transform: uppercase; }
         .size-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 25px; }
         .size-chip { 
             border: 1px solid var(--border); padding: 10px 0; text-align: center; 
-            font-size: 0.8rem; cursor: pointer; transition: 0.2s; 
+            font-size: 0.8rem; cursor: pointer; 
         }
         .size-chip.selected { background: var(--text); color: #fff; border-color: var(--text); }
 
-        /* Image Slider */
         .slider-area { flex: 1.2; position: relative; }
-        .slider-track { 
-            display: flex; overflow-x: auto; 
-            snap-type: x mandatory; scrollbar-width: none;
-        }
+        .slider-track { display: flex; overflow-x: auto; snap-type: x mandatory; scrollbar-width: none; }
         .slider-track::-webkit-scrollbar { display: none; }
-        .slider-track img { 
-            width: 100%; flex-shrink: 0; snap-align: start; 
-            background: var(--surface); cursor: zoom-in;
-        }
+        .slider-track img { width: 100%; flex-shrink: 0; snap-align: start; background: var(--surface); cursor: zoom-in; }
 
-        /* Product Details */
         .details-area { flex: 1; }
         .details-area h1 { font-family: 'Syne'; font-size: 1.8rem; margin-bottom: 8px; }
         .details-area .price { font-size: 1.4rem; margin-bottom: 20px; color: var(--accent); font-weight: 600; }
@@ -112,34 +117,22 @@
             cursor: pointer; margin-bottom: 10px; font-size: 0.9rem;
         }
 
-        /* Checkout Overlay */
         .overlay {
             position: fixed; inset: 0; background: rgba(0,0,0,0.85);
             display: none; z-index: 3000; align-items: center; justify-content: center; padding: 20px;
         }
-        .pay-card {
-            background: #fff; padding: 30px; border-radius: 4px;
-            width: 100%; max-width: 400px;
-        }
-        .bank-box {
-            background: #f9f9f9; padding: 20px;
-            border-left: 4px solid var(--accent); margin: 20px 0;
-        }
+        .pay-card { background: #fff; padding: 30px; border-radius: 4px; width: 100%; max-width: 400px; }
+        .bank-box { background: #f9f9f9; padding: 20px; border-left: 4px solid var(--accent); margin: 20px 0; }
+        input { width: 100%; padding: 14px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; font-size: 1rem; }
 
-        input {
-            width: 100%; padding: 14px; background: #fff;
-            border: 1px solid #ddd; margin-bottom: 12px; font-size: 1rem;
-        }
-
-        .zoom {
-            position: fixed; inset: 0; background: #fff;
-            display: none; z-index: 4000; justify-content: center; align-items: center;
-        }
+        .zoom { position: fixed; inset: 0; background: #fff; display: none; z-index: 4000; justify-content: center; align-items: center; }
         .zoom img { max-width: 100%; max-height: 100%; object-fit: contain; }
     </style>
 </head>
 
 <body>
+
+<div class="announcement">FREE DELIVERY WITHIN ABUJA CENTRAL</div>
 
 <nav>
     <div class="logo">ZAPATO KICKS</div>
@@ -211,7 +204,7 @@ function openProduct(id) {
     const p = products.find(prod => prod.id === id);
     const images = p.image_url ? p.image_url.split(',') : [];
     const modal = document.getElementById('productModal');
-    selectedSize = null; // Reset size on open
+    selectedSize = null;
 
     const sizes = [37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
 
@@ -254,11 +247,8 @@ function selectSize(el, size) {
 
 function addToCart(id) {
     if(!selectedSize) return alert("Please select a shoe size.");
-    
     const product = products.find(p => p.id === id);
-    // Add size info to the item in cart
     cart.push({ ...product, selectedSize: selectedSize });
-    
     document.getElementById('count').innerText = cart.length;
     document.getElementById('productModal').style.display = 'none';
 }
@@ -273,14 +263,12 @@ function sendOrder() {
     const addr = document.getElementById('cAddress').value;
     if (!name || !addr) return alert("Details required.");
 
-    // Format items with their specific sizes
     const items = cart.map(i => `- ${i.name} (Size: ${i.selectedSize})`).join('%0A');
     const total = cart.reduce((s, i) => s + Number(i.price), 0);
     const text = `*ZAPATO KICKS ORDER*%0A*Name:* ${name}%0A*Delivery:* ${addr}%0A%0A*Items:*%0A${items}%0A%0A*Total:* ₦${total.toLocaleString()}`;
     
     window.open(`https://wa.me/2349061996801?text=${text}`);
-    cart = []; 
-    document.getElementById('count').innerText = "0";
+    cart = []; document.getElementById('count').innerText = "0";
     document.getElementById('checkoutModal').style.display = 'none';
 }
 
