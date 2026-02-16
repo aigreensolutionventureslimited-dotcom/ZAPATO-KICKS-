@@ -21,109 +21,74 @@
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; overflow-x: hidden; }
 
-        /* Restored Announcement Bar */
+        /* Announcement Bar */
         .announcement {
-            background: var(--text);
-            color: #fff;
-            text-align: center;
-            padding: 8px 0;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1100;
+            background: var(--text); color: #fff; text-align: center;
+            padding: 8px 0; font-size: 0.65rem; font-weight: 700;
+            letter-spacing: 2px; text-transform: uppercase;
+            position: fixed; top: 0; width: 100%; z-index: 1100;
         }
 
-        /* Adjusted Navigation for Announcement */
+        /* Navigation */
         nav {
-            position: fixed; top: 31px; width: 100%;
-            padding: 15px 5%;
+            position: fixed; top: 31px; width: 100%; padding: 15px 5%;
             display: flex; justify-content: space-between; align-items: center;
-            background: rgba(255, 255, 255, 0.98);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(10px);
             z-index: 1000; border-bottom: 1px solid var(--border);
         }
         .logo { font-family: 'Syne'; font-weight: 800; letter-spacing: 1px; font-size: 1.1rem; }
         .vault-btn { 
-            font-size: 0.7rem; font-weight: 700; 
-            background: var(--text); color: #fff; 
+            font-size: 0.7rem; font-weight: 700; background: var(--text); color: #fff; 
             padding: 10px 18px; border-radius: 2px; cursor: pointer;
         }
 
-        .filters {
-            display: flex; gap: 20px; 
-            padding: 130px 5% 20px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            border-bottom: 1px solid var(--border);
+        /* SHOPIFY STANDARD CART DRAWER */
+        .cart-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+            display: none; z-index: 2500; backdrop-filter: blur(2px);
         }
+        .cart-drawer {
+            position: fixed; top: 0; right: -100%; width: 100%; max-width: 400px; height: 100%;
+            background: #fff; z-index: 3000; transition: 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            display: flex; flex-direction: column;
+        }
+        .cart-drawer.active { right: 0; }
+        .cart-header { padding: 20px 25px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; }
+        .cart-items { flex: 1; overflow-y: auto; padding: 20px 25px; }
+        .cart-footer { padding: 25px; border-top: 1px solid var(--border); background: #fff; }
+        
+        .cart-item { display: flex; gap: 15px; margin-bottom: 20px; align-items: center; }
+        .cart-item img { width: 70px; height: 70px; object-fit: cover; background: var(--surface); border-radius: 2px; }
+        .cart-item-info { flex: 1; }
+        .cart-item-name { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; }
+        .cart-item-meta { font-size: 0.7rem; color: var(--gray); margin: 2px 0; }
+        .remove-item { background: none; border: none; font-size: 1.2rem; cursor: pointer; color: #ccc; }
+
+        /* Rest of the design stays the same */
+        .filters { display: flex; gap: 20px; padding: 130px 5% 20px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--border); }
         .filters::-webkit-scrollbar { display: none; }
-        .f-btn { 
-            background: none; border: none; color: var(--gray); 
-            font-size: 0.75rem; font-weight: 600; cursor: pointer; 
-            text-transform: uppercase; white-space: nowrap;
-        }
+        .f-btn { background: none; border: none; color: var(--gray); font-size: 0.75rem; font-weight: 600; cursor: pointer; text-transform: uppercase; white-space: nowrap; }
         .f-btn.active { color: var(--text); border-bottom: 2px solid var(--text); }
 
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
-            padding: 30px 5% 100px;
-        }
+        .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; padding: 30px 5% 100px; }
         @media (min-width: 768px) { .grid { grid-template-columns: repeat(4, 1fr); gap: 30px; } }
-
         .card { cursor: pointer; }
-        .card img {
-            width: 100%; aspect-ratio: 1/1;
-            object-fit: cover; background: var(--surface);
-            border-radius: 2px;
-        }
+        .card img { width: 100%; aspect-ratio: 1/1; object-fit: cover; background: var(--surface); border-radius: 2px; }
         .card-name { font-size: 0.85rem; margin-top: 12px; font-weight: 500; text-transform: uppercase; }
         .card-price { font-size: 0.85rem; color: var(--gray); margin-top: 4px; }
 
-        /* Modal & Size Selection */
-        .modal {
-            position: fixed; inset: 0; background: #fff;
-            display: none; z-index: 2000; overflow-y: auto;
-        }
+        .modal { position: fixed; inset: 0; background: #fff; display: none; z-index: 2000; overflow-y: auto; }
         .modal-content { max-width: 1100px; margin: 0 auto; padding: 80px 5% 40px; display: flex; flex-direction: column; gap: 30px; }
         @media (min-width: 768px) { .modal-content { flex-direction: row; padding-top: 120px; } }
 
         .size-header { font-size: 0.75rem; font-weight: 700; margin: 20px 0 10px; text-transform: uppercase; }
         .size-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; margin-bottom: 25px; }
-        .size-chip { 
-            border: 1px solid var(--border); padding: 10px 0; text-align: center; 
-            font-size: 0.8rem; cursor: pointer; 
-        }
+        .size-chip { border: 1px solid var(--border); padding: 10px 0; text-align: center; font-size: 0.8rem; cursor: pointer; }
         .size-chip.selected { background: var(--text); color: #fff; border-color: var(--text); }
 
-        .slider-area { flex: 1.2; position: relative; }
-        .slider-track { display: flex; overflow-x: auto; snap-type: x mandatory; scrollbar-width: none; }
-        .slider-track::-webkit-scrollbar { display: none; }
-        .slider-track img { width: 100%; flex-shrink: 0; snap-align: start; background: var(--surface); cursor: zoom-in; }
-
-        .details-area { flex: 1; }
-        .details-area h1 { font-family: 'Syne'; font-size: 1.8rem; margin-bottom: 8px; }
-        .details-area .price { font-size: 1.4rem; margin-bottom: 20px; color: var(--accent); font-weight: 600; }
-        .details-area .desc { color: var(--gray); margin-bottom: 20px; font-size: 0.9rem; border-top: 1px solid var(--border); padding-top: 20px; }
-
-        .action-btn {
-            width: 100%; padding: 18px; border: 1px solid var(--text);
-            background: var(--text); color: #fff; font-weight: 700;
-            cursor: pointer; margin-bottom: 10px; font-size: 0.9rem;
-        }
-
-        .overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.85);
-            display: none; z-index: 3000; align-items: center; justify-content: center; padding: 20px;
-        }
-        .pay-card { background: #fff; padding: 30px; border-radius: 4px; width: 100%; max-width: 400px; }
-        .bank-box { background: #f9f9f9; padding: 20px; border-left: 4px solid var(--accent); margin: 20px 0; }
-        input { width: 100%; padding: 14px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; font-size: 1rem; }
+        .action-btn { width: 100%; padding: 18px; border: 1px solid var(--text); background: var(--text); color: #fff; font-weight: 700; cursor: pointer; margin-bottom: 10px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
+        .bank-box { background: #f9f9f9; padding: 15px; border-left: 3px solid var(--accent); margin-bottom: 20px; }
+        input { width: 100%; padding: 14px; background: #fff; border: 1px solid #ddd; margin-bottom: 12px; font-size: 0.9rem; outline: none; }
 
         .zoom { position: fixed; inset: 0; background: #fff; display: none; z-index: 4000; justify-content: center; align-items: center; }
         .zoom img { max-width: 100%; max-height: 100%; object-fit: contain; }
@@ -136,7 +101,7 @@
 
 <nav>
     <div class="logo">ZAPATO KICKS</div>
-    <div class="vault-btn" onclick="openCheckout()">CART (<span id="count">0</span>)</div>
+    <div class="vault-btn" onclick="toggleCart(true)">CART (<span id="count">0</span>)</div>
 </nav>
 
 <div class="filters">
@@ -149,23 +114,31 @@
 
 <div class="grid" id="grid"></div>
 
-<div id="productModal" class="modal"></div>
-
-<div id="checkoutModal" class="overlay">
-    <div class="pay-card">
-        <h2 style="font-family:'Syne';">CHECKOUT</h2>
+<div id="cartOverlay" class="cart-overlay" onclick="toggleCart(false)"></div>
+<div id="cartDrawer" class="cart-drawer">
+    <div class="cart-header">
+        <h2 style="font-family:'Syne'; font-size: 1rem; letter-spacing: 1px;">YOUR VAULT</h2>
+        <button onclick="toggleCart(false)" style="background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
+    </div>
+    <div class="cart-items" id="cartItems">
+        </div>
+    <div class="cart-footer">
         <div class="bank-box">
-            <p style="font-size: 0.65rem; color:#888; text-transform: uppercase;">Transfer to Moniepoint MFB</p>
-            <h4 style="font-size: 1.3rem; margin: 5px 0;">8164082531</h4>
-            <p style="font-size: 0.65rem; color:#888; text-transform: uppercase;">Account Name</p>
-            <h4 style="color:var(--accent)">ZAPATO KICKS</h4>
+            <p style="font-size: 0.6rem; color:#888; text-transform: uppercase;">Transfer to Moniepoint MFB</p>
+            <h4 style="font-size: 1.1rem; margin: 2px 0;">9061996801</h4>
+            <p style="font-size: 0.6rem; color:#888; text-transform: uppercase; color:var(--accent)">ZAPATO KICKS</p>
         </div>
         <input id="cName" placeholder="Full Name">
         <input id="cAddress" placeholder="Delivery Address in Abuja">
+        <div style="display:flex; justify-content:space-between; margin: 15px 0; font-weight:700; font-size: 0.9rem;">
+            <span>SUBTOTAL</span>
+            <span id="cartTotal">₦0</span>
+        </div>
         <button class="action-btn" onclick="sendOrder()">COMPLETE ON WHATSAPP</button>
-        <button onclick="document.getElementById('checkoutModal').style.display='none'" style="background:none; border:none; color:var(--gray); width:100%; cursor:pointer; font-size:0.7rem;">CANCEL</button>
     </div>
 </div>
+
+<div id="productModal" class="modal"></div>
 
 <div class="zoom" id="zoom" onclick="this.style.display='none'; document.body.style.overflow='auto'">
     <img id="zoomImg">
@@ -205,38 +178,29 @@ function openProduct(id) {
     const images = p.image_url ? p.image_url.split(',') : [];
     const modal = document.getElementById('productModal');
     selectedSize = null;
-
     const sizes = [37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47];
 
     modal.innerHTML = `
         <div class="modal-content">
-            <div class="slider-area">
+            <div style="flex:1.2; position:relative;">
                 <button onclick="document.getElementById('productModal').style.display='none'" style="position:absolute; top:-40px; right:0; background:none; border:none; font-size:1.5rem; cursor:pointer;">&times;</button>
-                <div class="slider-track">
-                    ${images.map(img => `<img src="${img}" onclick="openZoom('${img}')">`).join('')}
+                <div style="display:flex; overflow-x:auto; snap-type:x mandatory; scrollbar-width:none;">
+                    ${images.map(img => `<img src="${img}" style="width:100%; flex-shrink:0; snap-align:start; background:var(--surface);" onclick="openZoom('${img}')">`).join('')}
                 </div>
-                <div style="text-align:center; font-size:0.6rem; color:#aaa; margin-top:10px; text-transform:uppercase; letter-spacing:1px;">← Swipe Images →</div>
             </div>
             <div class="details-area">
-                <h1>${p.name}</h1>
-                <p class="price">₦${Number(p.price).toLocaleString()}</p>
-                
+                <h1 style="font-family:'Syne'; text-transform:uppercase;">${p.name}</h1>
+                <p style="font-size:1.4rem; color:var(--accent); font-weight:600; margin-bottom:20px;">₦${Number(p.price).toLocaleString()}</p>
                 <div class="size-header">Select Size (EU)</div>
-                <div class="size-grid">
-                    ${sizes.map(s => `<div class="size-chip" onclick="selectSize(this, ${s})">${s}</div>`).join('')}
-                </div>
-
-                <div class="desc">
-                    <strong>PREMIUM COLLECTION</strong><br><br>
-                    Authentic ${p.cat} from Zapato Kicks. Designed for style and ultimate comfort. Exclusive to the Abuja Vault.
+                <div class="size-grid">${sizes.map(s => `<div class="size-chip" onclick="selectSize(this, ${s})">${s}</div>`).join('')}</div>
+                <div style="color:var(--gray); font-size:0.9rem; border-top:1px solid var(--border); padding-top:20px; margin-bottom:25px;">
+                    <strong>PREMIUM COLLECTION</strong><br>Authentic ${p.cat} from Zapato Kicks. Designed for style and ultimate comfort.
                 </div>
                 <button class="action-btn" onclick="addToCart(${p.id})">ADD TO VAULT</button>
-                <button class="action-btn" style="background:#fff; color:#000;" onclick="document.getElementById('productModal').style.display='none'">CONTINUE SHOPPING</button>
             </div>
         </div>
     `;
     modal.style.display = 'block';
-    window.scrollTo(0,0);
 }
 
 function selectSize(el, size) {
@@ -245,23 +209,51 @@ function selectSize(el, size) {
     selectedSize = size;
 }
 
-function addToCart(id) {
-    if(!selectedSize) return alert("Please select a shoe size.");
-    const product = products.find(p => p.id === id);
-    cart.push({ ...product, selectedSize: selectedSize });
-    document.getElementById('count').innerText = cart.length;
-    document.getElementById('productModal').style.display = 'none';
+function toggleCart(open) {
+    document.getElementById('cartDrawer').classList.toggle('active', open);
+    document.getElementById('cartOverlay').style.display = open ? 'block' : 'none';
+    if(open) updateCartUI();
 }
 
-function openCheckout() {
-    if (!cart.length) return alert("Your vault is empty.");
-    document.getElementById('checkoutModal').style.display = 'flex';
+function addToCart(id) {
+    if(!selectedSize) return alert("Please select a size.");
+    const p = products.find(prod => prod.id === id);
+    cart.push({ ...p, selectedSize });
+    document.getElementById('count').innerText = cart.length;
+    document.getElementById('productModal').style.display = 'none';
+    toggleCart(true);
+}
+
+function updateCartUI() {
+    const container = document.getElementById('cartItems');
+    let total = 0;
+    container.innerHTML = cart.map((item, index) => {
+        total += Number(item.price);
+        return `
+            <div class="cart-item">
+                <img src="${item.image_url.split(',')[0]}">
+                <div class="cart-item-info">
+                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-meta">Size: ${item.selectedSize}</div>
+                    <div style="font-size:0.8rem; font-weight:600;">₦${Number(item.price).toLocaleString()}</div>
+                </div>
+                <button class="remove-item" onclick="removeItem(${index})">&times;</button>
+            </div>
+        `;
+    }).join('');
+    document.getElementById('cartTotal').innerText = `₦${total.toLocaleString()}`;
+}
+
+function removeItem(index) {
+    cart.splice(index, 1);
+    document.getElementById('count').innerText = cart.length;
+    updateCartUI();
 }
 
 function sendOrder() {
     const name = document.getElementById('cName').value;
     const addr = document.getElementById('cAddress').value;
-    if (!name || !addr) return alert("Details required.");
+    if (!name || !addr || !cart.length) return alert("Required details missing.");
 
     const items = cart.map(i => `- ${i.name} (Size: ${i.selectedSize})`).join('%0A');
     const total = cart.reduce((s, i) => s + Number(i.price), 0);
@@ -269,7 +261,7 @@ function sendOrder() {
     
     window.open(`https://wa.me/2349061996801?text=${text}`);
     cart = []; document.getElementById('count').innerText = "0";
-    document.getElementById('checkoutModal').style.display = 'none';
+    toggleCart(false);
 }
 
 function filterCat(cat, btn) {
@@ -281,7 +273,6 @@ function filterCat(cat, btn) {
 function openZoom(src) {
     document.getElementById('zoomImg').src = src;
     document.getElementById('zoom').style.display = 'flex';
-    document.body.style.overflow = 'hidden';
 }
 
 load();
