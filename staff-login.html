@@ -3,268 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Academic Publication | Anointed Okowhoake</title>
-    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Research Portal | Anointed Okowhoake</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600&family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,700;1,400&display=swap" rel="stylesheet">
     <style>
         :root {
-            --navy: #002147;
+            --navy: #0a192f;
             --gold: #c5a059;
-            --light-bg: #fdfdfd;
-            --sidebar-bg: #f4f7f9;
-            --text: #1a1a1a;
-            --border: #d1d9e0;
+            --slate: #64748b;
+            --white: #ffffff;
+            --bg: #f8fafc;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            background-color: var(--light-bg);
-            color: var(--text);
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
             display: flex;
-            line-height: 1.7;
-            font-family: 'Crimson Pro', serif;
+            height: 100vh;
+            overflow: hidden; /* Fixes to screen */
         }
 
-        /* Sidebar Navigation */
-        aside {
-            width: 320px;
-            background: var(--sidebar-bg);
-            height: 100vh;
-            position: fixed;
-            padding: 3rem 2rem;
-            border-right: 1px solid var(--border);
+        /* Side Panel - Metadata & Author Info */
+        .side-panel {
+            width: 350px;
+            background: var(--navy);
+            color: var(--white);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            border-right: 4px solid var(--gold);
             overflow-y: auto;
         }
 
-        .author-card {
-            margin-bottom: 2.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid var(--gold);
+        .author-section {
+            padding-bottom: 2rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin-bottom: 2rem;
         }
 
-        .author-card h2 {
-            font-family: 'Inter', sans-serif;
+        .author-section h2 {
+            font-family: 'Cinzel', serif;
+            color: var(--gold);
             font-size: 1.2rem;
-            color: var(--navy);
             margin-bottom: 0.5rem;
         }
 
-        .author-card p {
-            font-family: 'Inter', sans-serif;
+        .author-section p {
             font-size: 0.85rem;
-            color: #555;
-            font-weight: 500;
+            opacity: 0.8;
+            line-height: 1.5;
         }
 
-        .nav-menu { list-style: none; margin-top: 2rem; }
-        .nav-menu li { margin-bottom: 0.8rem; }
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--navy);
-            font-family: 'Inter', sans-serif;
+        .meta-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .meta-label {
+            display: block;
+            color: var(--gold);
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+
+        .meta-value {
             font-size: 0.9rem;
-            transition: 0.3s;
+            line-height: 1.4;
+            display: block;
         }
-        .nav-menu a:hover { color: var(--gold); padding-left: 5px; }
 
-        /* Main Content */
-        main {
-            margin-left: 320px;
-            padding: 5rem;
-            max-width: 1000px;
+        /* Main Reading Area */
+        .content-area {
+            flex: 1;
+            overflow-y: auto;
+            padding: 4rem;
             background: white;
-            min-height: 100vh;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
         }
 
         .paper-title {
-            font-size: 3rem;
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
             color: var(--navy);
-            line-height: 1.2;
-            margin-bottom: 2rem;
-        }
-
-        /* Metadata Section */
-        .academic-meta {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-            background: #f9f9f9;
-            padding: 2rem;
-            border-radius: 4px;
             margin-bottom: 3rem;
-            border-left: 5px solid var(--navy);
-            font-family: 'Inter', sans-serif;
+            line-height: 1.2;
         }
 
-        .meta-item b { color: var(--navy); font-size: 0.8rem; text-transform: uppercase; display: block; }
-        .meta-item span { font-size: 1rem; color: #333; }
-
-        /* Content Sections */
-        section { margin-bottom: 4rem; }
-        h1, h2 { color: var(--navy); font-family: 'Inter', sans-serif; margin-bottom: 1.5rem; }
-        h1 { font-size: 1.8rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-        h2 { font-size: 1.4rem; margin-top: 2rem; }
-        
-        p { font-size: 1.25rem; margin-bottom: 1.5rem; color: #2c2c2c; text-align: justify; }
-        
-        .list-container {
-            background: #fff;
-            padding: 1.5rem 2rem;
-            margin-bottom: 2rem;
+        .chapter-section {
+            margin-bottom: 4rem;
+            max-width: 900px;
         }
-        
-        ul { margin-left: 1.5rem; margin-bottom: 2rem; }
-        li { font-size: 1.2rem; margin-bottom: 0.8rem; }
 
-        .gap-box {
-            background: #fff4e5;
-            border: 1px dashed #e67e22;
-            padding: 2rem;
-            margin: 2rem 0;
+        .chapter-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            color: var(--gold);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .chapter-content {
+            font-size: 1.1rem;
+            color: #334155;
+            line-height: 1.8;
+        }
+
+        .sub-header {
+            font-weight: 700;
+            color: var(--navy);
+            margin: 1.5rem 0 0.5rem 0;
+            font-size: 1.2rem;
+        }
+
+        ul {
+            margin: 1rem 0 1rem 2rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-card {
+            background: #f1f5f9;
+            padding: 1.5rem;
             border-radius: 8px;
+            border-left: 5px solid var(--navy);
+            margin: 1.5rem 0;
         }
 
-        .gap-box h3 { color: #d35400; font-family: 'Inter', sans-serif; margin-bottom: 1rem; }
+        /* Screen Fit Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
 
-        footer {
-            border-top: 1px solid var(--border);
-            padding-top: 2rem;
-            margin-top: 4rem;
-            font-size: 0.9rem;
-            color: #777;
-            text-align: center;
-        }
-
-        @media (max-width: 768px) {
-            aside { width: 100%; height: auto; position: relative; }
-            main { margin-left: 0; padding: 2rem; }
-            body { flex-direction: column; }
-        }
     </style>
 </head>
 <body>
 
-    <aside>
-        <div class="author-card">
+    <div class="side-panel">
+        <div class="author-section">
             <h2>Anointed Okowhoake</h2>
-            <p>Department of Nautical Science</p>
-            <p>Federal College of Fisheries and Marine Technology</p>
-            <p>Victoria Island, Lagos</p>
+            <p>Department of Nautical Science<br>
+            Federal College of Fisheries and Marine Technology<br>
+            Victoria Island, Lagos</p>
         </div>
-        <ul class="nav-menu">
-            <li><a href="#meta">Publication Details</a></li>
-            <li><a href="#intro">Chapter 1: Introduction</a></li>
-            <li><a href="#lit">Chapter 2: Literature Review</a></li>
-            <li><a href="#pathways">Chapter 3: Career Pathways</a></li>
-            <li><a href="#skills">Chapter 4: Skills Analysis</a></li>
-            <li><a href="#recs">Chapter 5: Recommendations</a></li>
-        </ul>
-    </aside>
 
-    <main>
+        <div class="meta-item">
+            <span class="meta-label">Journal & Arthur</span>
+            <span class="meta-value">Maritime Educational Review 2026<br><strong>Auth:</strong> Anointed Okowhoake</span>
+        </div>
+
+        <div class="meta-item">
+            <span class="meta-label">Date of Publication</span>
+            <span class="meta-value">February 19, 2026</span>
+        </div>
+
+        <div class="meta-item">
+            <span class="meta-label">Main Objectives</span>
+            <span class="meta-value">To analyze the transition from sea to shore, identifying high-yield career paths and mapping transferable seafaring skills to the global supply chain.</span>
+        </div>
+
+        <div class="meta-item">
+            <span class="meta-label">Research Methods</span>
+            <span class="meta-value">Qualitative Descriptive Analysis, Labor Market Trend Mapping, and Curriculum-to-Industry Skill Correlation.</span>
+        </div>
+
+        <div class="meta-item">
+            <span class="meta-label">Summary</span>
+            <span class="meta-value">A comprehensive examination of the 'Cadet Berth Crisis' and a strategic roadmap for Nautical Science graduates to utilize their training in Port Ops, Safety, and Logistics.</span>
+        </div>
+
+        <div class="meta-item">
+            <span class="meta-label">Research Gap</span>
+            <span class="meta-value">Addresses the lack of shore-based career guidance in traditional maritime training, providing a fallback framework for unlicensed graduates.</span>
+        </div>
+    </div>
+
+    <div class="content-area">
         <h1 class="paper-title">EXPLORING ALTERNATIVE CAREER OPPORTUNITIES FOR NAUTICAL SCIENCE GRADUATES BEYOND ONBOARD SEAFARING</h1>
 
-        <section id="meta" class="academic-meta">
-            <div class="meta-item">
-                <b>1) Name of Journal & Author</b>
-                <span>Maritime Professional Review | Anointed Okowhoake</span>
-            </div>
-            <div class="meta-item">
-                <b>2) Date of Publication</b>
-                <span>February 19, 2026</span>
-            </div>
-            <div class="meta-item">
-                <b>3) Main Objectives</b>
-                <span>Identify barriers to sea employment and map shore-based maritime pathways.</span>
-            </div>
-            <div class="meta-item">
-                <b>4) Research Methods</b>
-                <span>Qualitative Descriptive Analysis & Professional Competency Mapping.</span>
-            </div>
-        </section>
+        <section class="chapter-section">
+            <div class="chapter-title">Chapter One: Introduction</div>
+            <div class="chapter-content">
+                <div class="sub-header">1.1 Background of the Study</div>
+                <p>Nautical Science is a professional maritime discipline focused on navigation, ship handling, seamanship, maritime law, cargo operations, and safety management. Traditionally, graduates of Nautical Science are trained to pursue careers as deck officers onboard merchant vessels, progressing from cadet to captain.</p>
+                <p>However, due to factors such as limited sea berths, economic downturns, automation, and intense global competition, many graduates are unable to secure onboard employment. This situation creates uncertainty and career stagnation, making it vital to explore alternative pathways.</p>
 
-        <section id="intro">
-            <h1>CHAPTER ONE: INTRODUCTION</h1>
-            <h2>1.1 Background of the Study</h2>
-            <p>Nautical Science is a professional maritime discipline focused on navigation, ship handling, seamanship, maritime law, cargo operations, and safety management. Traditionally, graduates of Nautical Science are trained to pursue careers as deck officers onboard merchant vessels, progressing from cadet to captain.</p>
-            <p>However, due to factors such as limited sea berths, economic downturns, automation, and intense global competition, many graduates are unable to secure onboard employment. This situation creates uncertainty and career stagnation among cadets.</p>
+                <div class="sub-header">1.2 Statement of the Problem</div>
+                <p>Many Nautical Science cadets struggle to obtain sea-time opportunities after graduation. Since sea-time is mandatory for certification, failure to secure onboard employment can delay or permanently halt professional advancement. This lack of information results in underemployment and wasted professional skills.</p>
 
-            <h2>1.2 Statement of the Problem</h2>
-            <p>Many Nautical Science cadets struggle to obtain sea-time opportunities after graduation. Since sea-time is mandatory for certification, failure to secure onboard employment can permanently halt professional advancement. There is a critical lack of awareness regarding alternative maritime and shore-based careers, resulting in underemployment.</p>
+                <div class="sub-header">1.3 Aim of the Study</div>
+                <p>To examine alternative career opportunities available to Nautical Science graduates who are unable to secure onboard employment.</p>
 
-            <h2>1.3 Aim of the Study</h2>
-            <p>To examine alternative career opportunities available to Nautical Science graduates who are unable to secure onboard employment.</p>
-
-            <h2>1.4 Objectives of the Study</h2>
-            <ul>
-                <li>To identify challenges preventing cadets from obtaining sea employment.</li>
-                <li>To examine shore-based maritime career opportunities.</li>
-                <li>To analyze transferable skills acquired in Nautical Science training.</li>
-                <li>To recommend career diversification strategies.</li>
-            </ul>
-        </section>
-
-        <section id="lit">
-            <h1>CHAPTER TWO: LITERATURE REVIEW</h1>
-            <h2>2.1 Overview of Nautical Science Training</h2>
-            <p>Nautical Science provides comprehensive knowledge in navigation, ship stability, meteorology, maritime law, and safety response. These skills are highly transferable beyond shipboard operations.</p>
-            
-            <h2>2.2 Challenges in Securing Sea Employment</h2>
-            <p>Studies show a global oversupply of junior officers in certain regions. Shipping companies often prefer experienced cadets, and the lack of strong national shipping fleets in developing nations worsens these opportunities.</p>
-        </section>
-
-        <section id="pathways">
-            <h1>CHAPTER THREE: ALTERNATIVE CAREER PATHWAYS</h1>
-            <div class="list-container">
-                <h3>3.1 Port and Terminal Operations</h3>
+                <div class="sub-header">1.4 Objectives of the Study</div>
                 <ul>
-                    <li>Port operations officer, Terminal planner, and Berth coordinator.</li>
-                </ul>
-                <h3>3.2 Maritime Safety and Compliance</h3>
-                <ul>
-                    <li>Safety officer (ISM compliance), Port State Control assistant, and Marine surveyor.</li>
-                </ul>
-                <h3>3.3 Shipping and Logistics Industry</h3>
-                <ul>
-                    <li>Shipping operations executive, Chartering assistant, and Supply chain coordinator.</li>
-                </ul>
-                <h3>3.4 Maritime Administration & Government</h3>
-                <ul>
-                    <li>Maritime administrations, Port authorities, and Customs services.</li>
+                    <li>To identify challenges preventing cadets from obtaining sea employment.</li>
+                    <li>To examine shore-based maritime career opportunities.</li>
+                    <li>To analyze transferable skills acquired in Nautical Science training.</li>
+                    <li>To recommend career diversification strategies.</li>
                 </ul>
             </div>
         </section>
 
-        <section id="skills">
-            <h1>CHAPTER FOUR: SKILLS ANALYSIS</h1>
-            <p>Nautical cadets possess analytical thinking, situational awareness, technical documentation ability, and discipline. These skills are highly employable in non-maritime sectors like Aviation operations, Emergency management, and Corporate risk management.</p>
+        
+
+        <section class="chapter-section">
+            <div class="chapter-title">Chapter Two: Literature Review</div>
+            <div class="chapter-content">
+                <div class="sub-header">2.1 Overview of Nautical Science Training</div>
+                <p>Nautical Science provides knowledge in Navigation, Ship Stability, Meteorology, Maritime Law, and Safety. These skills are highly transferable beyond shipboard operations.</p>
+
+                <div class="sub-header">2.2 Challenges in Securing Sea Employment</div>
+                <p>Global oversupply of junior officers, preference for experienced cadets, and limited berths in developing maritime nations remain significant hurdles.</p>
+            </div>
         </section>
 
-        <section id="summary">
-            <h1>5) SUMMARY</h1>
-            <p>This research provides a comprehensive roadmap for Nautical Science graduates. It establishes that while seafaring is the primary goal, the "Blue Economy" offers an expansive array of shore-based roles that require the exact technical and legal knowledge taught in the Nautical Science curriculum at FCFMT. It concludes that a Nautical Science degree is a versatile management asset, not just a license to sail.</p>
+        <section class="chapter-section">
+            <div class="chapter-title">Chapter Three: Alternative Career Pathways</div>
+            <div class="chapter-content">
+                <div class="highlight-card">
+                    <div class="sub-header">3.1 Port and Terminal Operations</div>
+                    <p>Roles: Port Operations Officer, Marine Traffic Controller, Terminal Planner, Berth Coordinator.</p>
+                    
+                    <div class="sub-header">3.2 Maritime Safety and Compliance</div>
+                    <p>Roles: Safety Officer (ISM), Port State Control Assistant, Marine Surveyor Trainee.</p>
+                </div>
+                
+                <div class="sub-header">3.3 Shipping and Logistics Industry</div>
+                <p>Roles include Shipping Operations Executive, Chartering Assistant, and Freight Forwarding Officer.</p>
+
+                <div class="sub-header">3.4 Administration & Offshore Sector</div>
+                <p>Possible employment within Maritime Administrations (NIMASA), Navy (Civil roles), and Dynamic Positioning in the Oil & Gas sector.</p>
+                
+                <div class="sub-header">3.9 Transferable Non-Maritime Careers</div>
+                <p>Skills like Crisis Management and Risk Assessment allow graduates to work in Aviation, Emergency Management, and Security Services.</p>
+            </div>
         </section>
 
-        <section id="gap" class="gap-box">
-            <h3>6) THE RESEARCH GAP</h3>
-            <p>Current maritime literature focuses almost exclusively on the technical efficiency of vessels and onboard crew retention. There is a <b>significant gap</b> in structured academic guidance for the "Shore-side Transition" of deck officers. This study fills that gap by providing a strategic framework for career diversification that is currently missing from standard maritime vocational counseling.</p>
+        <section class="chapter-section">
+            <div class="chapter-title">Chapter Four: Skills Analysis</div>
+            <div class="chapter-content">
+                <p>Nautical cadets possess: Analytical thinking, Situational awareness, Technical documentation ability, and Communication skills. These allow for high employability in any structured corporate environment.</p>
+            </div>
         </section>
 
-        <section id="recs">
-            <h1>CHAPTER FIVE: RECOMMENDATIONS</h1>
-            <ul>
-                <li>Maritime institutions should provide career counseling beyond sea service.</li>
-                <li>Curriculum should include maritime business and logistics modules.</li>
-                <li>Governments should strengthen local shipping fleets.</li>
-                <li>Cadets should acquire additional certifications in project management or HSE.</li>
-            </ul>
+        <section class="chapter-section">
+            <div class="chapter-title">Chapter Five & Conclusion</div>
+            <div class="chapter-content">
+                <div class="sub-header">Recommendations</div>
+                <ul>
+                    <li>Institutions should provide career counseling for shore-based roles.</li>
+                    <li>Curriculum should include maritime business modules.</li>
+                    <li>Cadets should acquire additional certifications in Project Management or Logistics.</li>
+                </ul>
+                <p style="margin-top: 2rem; font-style: italic;">With proper awareness and skill adaptation, Nautical Science graduates can build successful careers even without onboard employment.</p>
+            </div>
         </section>
-
-        <footer>
-            &copy; 2026 Anointed Okowhoake | Nautical Science Department | Federal College of Fisheries and Marine Technology
-        </footer>
-    </main>
+    </div>
 
 </body>
 </html>
