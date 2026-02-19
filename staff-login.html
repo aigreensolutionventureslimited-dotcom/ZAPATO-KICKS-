@@ -3,50 +3,264 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Staff Terminal | Zapato Kicks</title>
-    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@800&family=Inter:wght@400;600&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <title>Research Publication | Anointed Okowhoake</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.263.0/umd/lucide.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root { --bg: #050505; --accent: #c5a059; --text: #ffffff; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-card { background: #0f0f0f; padding: 50px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); width: 100%; max-width: 400px; text-align: center; }
-        h1 { font-family: 'Syne'; font-size: 1.5rem; margin-bottom: 10px; letter-spacing: 1px; }
-        p { color: #666; font-size: 0.8rem; margin-bottom: 30px; text-transform: uppercase; letter-spacing: 2px; }
-        input { width: 100%; padding: 15px; margin-bottom: 15px; background: #000; border: 1px solid #222; color: #fff; border-radius: 10px; outline: none; }
-        input:focus { border-color: var(--accent); }
-        .login-btn { width: 100%; padding: 15px; background: var(--accent); color: #000; border: none; border-radius: 10px; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; }
-        .login-btn:hover { opacity: 0.8; transform: translateY(-2px); }
-        #msg { font-size: 0.8rem; margin-top: 15px; color: #ff4444; }
+        :root {
+            --primary-blue: #003366; /* Institutional Navy */
+            --accent-gold: #b8860b;
+            --text-dark: #1a1a1a;
+            --text-light: #525252;
+            --bg-paper: #ffffff;
+            --bg-sidebar: #f1f5f9;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-paper);
+            color: var(--text-dark);
+            display: flex;
+            line-height: 1.6;
+        }
+
+        /* Side Navigation */
+        aside {
+            width: 300px;
+            background: var(--bg-sidebar);
+            height: 100vh;
+            position: fixed;
+            padding: 2.5rem 1.5rem;
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .author-meta {
+            padding-bottom: 2rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .author-meta h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 0.5rem;
+        }
+
+        .author-meta p {
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            color: var(--text-light);
+            line-height: 1.4;
+        }
+
+        nav a {
+            display: block;
+            text-decoration: none;
+            color: var(--text-dark);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 500;
+            padding: 0.6rem 0;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-gold);
+        }
+
+        /* Main Content Area */
+        main {
+            margin-left: 300px;
+            flex: 1;
+            padding: 4rem 6rem;
+            max-width: 1100px;
+        }
+
+        .paper-header {
+            margin-bottom: 4rem;
+        }
+
+        .paper-header h1 {
+            font-family: 'Crimson Pro', serif;
+            font-size: 2.8rem;
+            line-height: 1.1;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .metadata-bar {
+            display: flex;
+            gap: 2rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-light);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 0;
+        }
+
+        /* Article Body */
+        article {
+            font-family: 'Crimson Pro', serif;
+            font-size: 1.25rem;
+            color: #333;
+        }
+
+        section {
+            margin-bottom: 3rem;
+        }
+
+        h2 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-blue);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            border-left: 4px solid var(--accent-gold);
+            padding-left: 1rem;
+        }
+
+        h3 {
+            font-family: 'Inter', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin: 1.5rem 0 0.8rem 0;
+        }
+
+        ul {
+            margin-left: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-box {
+            background: #f8fafc;
+            border: 1px solid var(--border);
+            padding: 2rem;
+            border-radius: 8px;
+            margin: 2rem 0;
+        }
+
+        .footer {
+            margin-top: 5rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+            font-size: 0.9rem;
+            color: var(--text-light);
+            text-align: center;
+        }
+
+        @media (max-width: 900px) {
+            aside { width: 100%; height: auto; position: relative; }
+            main { margin-left: 0; padding: 2rem; }
+            body { flex-direction: column; }
+        }
     </style>
 </head>
 <body>
-    <div class="login-card">
-        <h1>STAFF ACCESS</h1>
-        <p>Terminal Authentication</p>
-        <input type="email" id="email" placeholder="Staff Email">
-        <input type="password" id="pass" placeholder="Security Protocol">
-        <button class="login-btn" onclick="login()">Enter Terminal</button>
-        <div id="msg"></div>
-    </div>
+
+    <aside>
+        <div class="author-meta">
+            <h2>Anointed Okowhoake</h2>
+            <p>Department of Nautical Science<br>
+            Federal College of Fisheries and Marine Technology<br>
+            Victoria Island, Lagos</p>
+        </div>
+        <nav>
+            <a href="#intro">1. Introduction</a>
+            <a href="#literature">2. Literature Review</a>
+            <a href="#pathways">3. Alternative Pathways</a>
+            <a href="#analysis">4. Skills Analysis</a>
+            <a href="#recommendations">5. Recommendations</a>
+        </nav>
+        <div style="margin-top: auto;">
+            <p style="font-size: 0.75rem; color: var(--text-light);">Published: Feb 2026</p>
+        </div>
+    </aside>
+
+    <main>
+        <div class="paper-header">
+            <h1>Exploring Alternative Career Opportunities for Nautical Science Graduates Beyond Onboard Seafaring</h1>
+            <div class="metadata-bar">
+                <span><span>Journal:</span> Maritime Research Archive</span>
+                <span><span>Status:</span> Academic Publication</span>
+            </div>
+        </div>
+
+        <article>
+            <section id="intro">
+                <h2>Chapter One: Introduction</h2>
+                <p>Nautical Science is a professional maritime discipline focused on navigation, ship handling, seamanship, maritime law, cargo operations, and safety management. Traditionally, graduates are trained to pursue careers as deck officers onboard merchant vessels.</p>
+                
+                <h3>1.1 Statement of the Problem</h3>
+                <p>Many Nautical Science cadets struggle to obtain sea-time opportunities after graduation. Since sea-time is mandatory for certification, failure to secure onboard employment can permanently halt professional advancement.</p>
+            </section>
+
+            <section id="pathways">
+                <h2>Chapter Three: Alternative Career Pathways</h2>
+                <p>If a cadet does not get onboard employment, the following industries offer viable high-level careers:</p>
+                
+                <div class="highlight-box">
+                    <h3>3.1 Port and Terminal Operations</h3>
+                    <ul>
+                        <li>Port Operations Officer</li>
+                        <li>Marine Traffic Controller</li>
+                        <li>Terminal Planner</li>
+                    </ul>
+
+                    <h3>3.2 Maritime Safety & Compliance</h3>
+                    <ul>
+                        <li>Safety Officer (ISM Compliance)</li>
+                        <li>Port State Control Assistant</li>
+                        <li>Marine Surveyor Trainee</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="analysis">
+                <h2>Chapter Four: Transferable Skills Analysis</h2>
+                <p>Nautical cadets possess unique competencies that are highly employable outside shipboard roles:</p>
+                <ul>
+                    <li><strong>Analytical Thinking:</strong> Complex navigation and chart work.</li>
+                    <li><strong>Situational Awareness:</strong> Bridge management under high pressure.</li>
+                    <li><strong>Technical Documentation:</strong> Deep knowledge of SOLAS and MARPOL regulations.</li>
+                    <li><strong>Leadership:</strong> Experience in structured command hierarchies.</li>
+                </ul>
+            </section>
+
+            <section id="recommendations">
+                <h2>Conclusion & Recommendations</h2>
+                <p>Although seafaring remains the traditional path, the maritime industry extends far beyond the hull of a ship. By pivoting toward Port Operations, Maritime Law, and Logistics, graduates can build successful careers.</p>
+                
+                <div style="background: var(--primary-blue); color: white; padding: 1.5rem; border-radius: 8px;">
+                    <p><strong>Recommendation:</strong> Maritime institutions should provide career counseling that emphasizes shore-based management roles alongside sea-service training.</p>
+                </div>
+            </section>
+        </article>
+
+        <div class="footer">
+            &copy; 2026 Anointed Okowhoake | Federal College of Fisheries and Marine Technology
+        </div>
+    </main>
 
     <script>
-        const _supabase = supabase.createClient('https://rvfuenrggxverrnnmcet.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ2ZnVlbnJnZ3h2ZXJybm5tY2V0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njc4Njc2MTcsImV4cCI6MjA4MzQ0MzYxN30.aKCaWeXR1Le68waDqG_UHiOOZpkZYNC2FTTMutY-CqI');
-
-        async function login() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('pass').value;
-            const btn = document.querySelector('.login-btn');
-            
-            btn.innerText = "VERIFYING...";
-            const { data, error } = await _supabase.auth.signInWithPassword({ email, password });
-
-            if (error) {
-                document.getElementById('msg').innerText = "Access Denied: Invalid Credentials";
-                btn.innerText = "ENTER TERMINAL";
-            } else {
-                window.location.href = "admin.html";
-            }
-        }
+        lucide.createIcons();
     </script>
 </body>
 </html>
