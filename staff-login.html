@@ -3,295 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anointed Okowhoake | Research Publication</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <title>O & J Enterprise Dynamics | Nigeria News</title>
     <style>
         :root {
-            --navy: #002147;
-            --gold: #b8860b;
-            --bg: #ffffff;
-            --light-gray: #f4f7f6;
-            --text: #1a1a1a;
-            --white: #ffffff;
+            --primary-silver: #c0c0c0;
+            --dark-slate: #2c2c2c;
+            --accent-gold: #b8860b;
+            --bg-color: #f4f4f4;
         }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-        }
-
-        /* Responsive Wrapper */
-        .wrapper {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* Header Styling */
-        header {
-            background: var(--navy);
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom: 5px solid var(--gold);
-        }
-
-        .college-name {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-            display: block;
-            color: var(--gold);
-            font-weight: 700;
-        }
-
-        .author-name {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-
-        /* Main Container Layout */
-        .main-container {
-            display: flex;
-            flex-direction: column; /* Default for Mobile */
-        }
-
-        /* Metadata Section */
-        .meta-sidebar {
-            background: var(--light-gray);
-            padding: 25px;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .meta-block { margin-bottom: 18px; }
-
-        .meta-label {
-            font-size: 0.7rem;
-            font-weight: 800;
-            color: var(--navy);
-            text-transform: uppercase;
-            display: block;
-            border-left: 3px solid var(--gold);
-            padding-left: 8px;
-            margin-bottom: 4px;
-        }
-
-        .meta-content {
-            font-size: 0.95rem;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            background-color: var(--bg-color);
             color: #333;
-            display: block;
-            padding-left: 11px;
         }
 
-        /* Research Content Section */
-        article {
-            padding: 30px 20px;
-            flex: 1;
-        }
-
-        .main-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            line-height: 1.2;
-            color: var(--navy);
-            margin-bottom: 30px;
-        }
-
-        .chapter-heading {
-            background: var(--navy);
+        header {
+            background: linear-gradient(135deg, var(--dark-slate), #000);
             color: white;
-            padding: 10px 20px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: inline-block;
-            margin: 30px 0 15px 0;
-            border-radius: 4px;
-        }
-
-        .sub-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--navy);
-            margin: 20px 0 10px 0;
-        }
-
-        p {
-            font-size: 1.05rem;
-            margin-bottom: 18px;
-            text-align: justify;
-        }
-
-        ul { margin: 0 0 25px 25px; }
-
-        li { margin-bottom: 10px; font-size: 1rem; }
-
-        .highlight-card {
-            background: #fffdf2;
-            border: 1px solid var(--gold);
-            padding: 20px;
-            border-radius: 12px;
-            margin: 25px 0;
-        }
-
-        /* Reference Section */
-        .reference-section {
-            background: #f1f5f9;
-            padding: 30px 20px;
-            border-top: 1px solid #ddd;
-        }
-
-        .ref-item {
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px dashed #ccc;
-        }
-
-        footer {
-            background: var(--navy);
-            color: white;
+            padding: 2rem;
             text-align: center;
-            padding: 30px;
-            font-size: 0.85rem;
+            border-bottom: 3px solid var(--primary-silver);
         }
 
-        /* DESKTOP VIEW (Laptops) */
-        @media screen and (min-width: 1024px) {
-            .main-container {
-                flex-direction: row; /* Switch to Horizontal Sidebar */
-            }
+        header h1 { margin: 0; font-size: 1.8rem; letter-spacing: 1px; }
+        header p { opacity: 0.8; font-size: 0.9rem; }
 
-            .meta-sidebar {
-                width: 400px;
-                height: auto;
-                border-right: 1px solid #ddd;
-                border-bottom: none;
-                padding: 40px;
-            }
-
-            article {
-                padding: 60px 80px;
-                max-width: 900px;
-            }
-
-            .main-title { font-size: 3rem; }
+        .container {
+            max-width: 1000px;
+            margin: 2rem auto;
+            padding: 0 20px;
         }
 
-        /* MOBILE VIEW Adjustments */
-        @media screen and (max-width: 480px) {
-            .main-title { font-size: 1.6rem; }
-            article { padding: 20px; }
+        #news-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
         }
+
+        .news-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .news-card:hover { transform: translateY(-5px); }
+
+        .news-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background-color: var(--primary-silver);
+        }
+
+        .news-content { padding: 1.5rem; }
+        .news-content h3 { margin-top: 0; font-size: 1.2rem; color: var(--dark-slate); }
+        .news-content p { font-size: 0.9rem; line-height: 1.6; color: #666; }
+        
+        .read-more {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--accent-gold);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .loader { text-align: center; font-size: 1.2rem; padding: 2rem; }
     </style>
 </head>
 <body>
 
-    <div class="wrapper">
-        <header>
-            <span class="college-name">Federal College of Fisheries and Marine Technology</span>
-            <div class="author-name">Anointed Okowhoake</div>
-            <p style="font-size: 0.8rem; opacity: 0.8; margin-top: 5px;">Department of Nautical Science | Victoria Island, Lagos</p>
-        </header>
+<header>
+    <h1>O & J ENTERPRISE DYNAMICS</h1>
+    <p>STRATEGIC INNOVATION | NIGERIA LIVE NEWS</p>
+</header>
 
-        <div class="main-container">
-            <aside class="meta-sidebar">
-                <div class="meta-block">
-                    <span class="meta-label">1) Name of Journal & Arthur</span>
-                    <span class="meta-content">Global Maritime Careers Review / Anointed Okowhoake</span>
-                </div>
-                <div class="meta-block">
-                    <span class="meta-label">2) Date of Publication</span>
-                    <span class="meta-content">February 19, 2026</span>
-                </div>
-                <div class="meta-block">
-                    <span class="meta-label">3) Objective of Publication</span>
-                    <span class="meta-content">To analyze the transition from sea to shore, identifying high-yield career paths and mapping transferable seafaring skills to the global supply chain.</span>
-                </div>
-                <div class="meta-block">
-                    <span class="meta-label">4) Research Methods</span>
-                    <span class="meta-content">Qualitative Descriptive Analysis, Labor Market Trend Mapping, and Industrial Sector Correlation.</span>
-                </div>
-                <div class="meta-block">
-                    <span class="meta-label">5) Summary</span>
-                    <span class="meta-content">A strategic examination of alternative maritime pathways for Nautical Science graduates, offering solutions to the cadet berth crisis.</span>
-                </div>
-                <div class="meta-block">
-                    <span class="meta-label">6) Research Gap</span>
-                    <span class="meta-content">Addresses the lack of shore-based career guidance in traditional maritime training for West African graduates.</span>
-                </div>
-            </aside>
-
-            <article>
-                <h1 class="main-title">EXPLORING ALTERNATIVE CAREER OPPORTUNITIES FOR NAUTICAL SCIENCE GRADUATES BEYOND ONBOARD SEAFARING</h1>
-
-                <div class="chapter-heading">CHAPTER ONE: INTRODUCTION</div>
-                <div class="sub-title">1.1 Background of the Study</div>
-                <p>Nautical Science is a professional maritime discipline focused on navigation, ship handling, seamanship, maritime law, cargo operations, and safety management. Traditionally, graduates are trained to pursue careers as deck officers onboard merchant vessels.</p>
-                <p>However, factors such as limited sea berths, automation, and economic shifts prevent many graduates from securing onboard employment. Exploring alternative pathways is no longer an option, but a necessity.</p>
-
-                <div class="sub-title">1.2 Statement of the Problem</div>
-                <p>The "sea-time" requirement is a significant bottleneck. Without sea-time, professional growth is halted. This lack of information on alternative roles leads to high underemployment among highly skilled nautical cadets.</p>
-
-                <div class="sub-title">1.3 Aim & Objectives</div>
-                <ul>
-                    <li>Identify challenges preventing sea employment.</li>
-                    <li>Examine shore-based maritime opportunities.</li>
-                    <li>Analyze transferable skills like situational awareness and risk management.</li>
-                </ul>
-
-                
-
-                <div class="chapter-heading">CHAPTER TWO: LITERATURE REVIEW</div>
-                <p>The global labor market shows a paradox: while there is a shortage of senior officers, there is an oversupply of junior cadets in developing nations. This chapter analyzes the STCW framework and the shift toward the "Blue Economy."</p>
-
-                <div class="chapter-heading">CHAPTER THREE: ALTERNATIVE PATHWAYS</div>
-                <div class="highlight-card">
-                    <div class="sub-title">3.1 Port and Terminal Operations</div>
-                    <p>Roles: Port Operations Officer, Marine Traffic Controller, Terminal Planner.</p>
-                    
-                    <div class="sub-title">3.2 Maritime Safety & Compliance</div>
-                    <p>Roles: Safety Officer (ISM), Port State Control Assistant, Marine Surveyor.</p>
-                </div>
-
-                <div class="sub-title">3.3 Shipping and Logistics</div>
-                <p>Opportunities in Chartering, Freight Forwarding, and Supply Chain Management.</p>
-
-                <div class="chapter-heading">CHAPTER FOUR: SKILLS ANALYSIS</div>
-                <p>Technical competencies like Ship Stability and Meteorology translate into analytical roles in Marine Insurance, while leadership and discipline fit Corporate Risk Management perfectly.</p>
-
-                <div class="chapter-heading">CHAPTER FIVE: RECOMMENDATIONS</div>
-                <ul>
-                    <li>Maritime institutions must integrate "Business of Shipping" into the curriculum.</li>
-                    <li>Government should provide tax incentives for shore-based maritime firms hiring cadets.</li>
-                    <li>Cadets should pursue professional certifications in Logistics (CILT) or HSE.</li>
-                </ul>
-
-                <div class="chapter-heading">BIBLIOGRAPHY & REFERENCES</div>
-                <div class="reference-section">
-                    <div class="ref-item"><strong>Kitada, M. (2010).</strong> Maritime Career Lifecycles and the Ship-to-Shore Transition. <i>World Maritime University Press.</i></div>
-                    <div class="ref-item"><strong>Grewal, G.S. (2015).</strong> Transferable Skills: The Versatility of Nautical Training in Global Logistics. <i>Maritime Education Journal.</i></div>
-                    <div class="ref-item"><strong>Sampson, H. (2013).</strong> The Global Labor Market for Seafarers: Challenges and Trends. <i>Cardiff University SIRC.</i></div>
-                    <div class="ref-item"><strong>Sahi, N.S. (2018).</strong> Strategic Roadmap to Shore-Based Maritime Careers. <i>International Maritime Review.</i></div>
-                    <div class="ref-item"><strong>Doumbia-Henry, C. (2020).</strong> Future-Proofing Maritime Education: Beyond the Deck. <i>IMO Publications.</i></div>
-                    <div class="ref-item"><strong>Mukherjee, P.K. (2012).</strong> The Role of Nautical Knowledge in Marine Insurance and Admiralty Law. <i>Maritime Law Review.</i></div>
-                </div>
-
-                <div class="sub-title">Conclusion</div>
-                <p>With strategic planning, Nautical Science graduates from FCFMT can redefine their career success beyond the bridge of a ship.</p>
-            </article>
-        </div>
-
-        <footer>
-            &copy; 2026 Anointed Okowhoake<br>
-            Federal College of Fisheries and Marine Technology, Lagos.
-        </footer>
+<div class="container">
+    <div id="news-container">
+        <div class="loader">Fetching the latest headlines from Nigeria...</div>
     </div>
+</div>
+
+<script>
+    const apiKey = 'd2239af68fe74125be535ecb45ad0c35';
+    // Using the 'top-headlines' endpoint specifically for Nigeria (country=ng)
+    const apiUrl = `https://newsapi.org/v2/top-headlines?country=ng&apiKey=${apiKey}`;
+
+    async function fetchNews() {
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            if (data.status === "ok") {
+                displayNews(data.articles);
+            } else {
+                document.getElementById('news-container').innerHTML = `<p>Error: ${data.message}</p>`;
+            }
+        } catch (error) {
+            console.error("Error fetching news:", error);
+            document.getElementById('news-container').innerHTML = "<p>Unable to load news at this time.</p>";
+        }
+    }
+
+    function displayNews(articles) {
+        const container = document.getElementById('news-container');
+        container.innerHTML = ''; // Clear loader
+
+        articles.forEach(article => {
+            if (!article.title || article.title === "[Removed]") return;
+
+            const card = document.createElement('div');
+            card.className = 'news-card';
+
+            const imageUrl = article.urlToImage || 'https://via.placeholder.com/400x200?text=Nigeria+News';
+
+            card.innerHTML = `
+                <img src="${imageUrl}" alt="News Image">
+                <div class="news-content">
+                    <h3>${article.title}</h3>
+                    <p>${article.description || "Click below to read the full story on this developing news item."}</p>
+                    <a href="${article.url}" target="_blank" class="read-more">Read Full Story →</a>
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    }
+
+    fetchNews();
+</script>
 
 </body>
 </html>
