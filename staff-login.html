@@ -1,139 +1,376 @@
-<!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O & J Enterprise Dynamics | Nigeria News</title>
+    <title>Greenhouse Farming Plan - 50m x 100m Plot</title>
     <style>
-        :root {
-            --primary-silver: #c0c0c0;
-            --dark-slate: #2c2c2c;
-            --accent-gold: #b8860b;
-            --bg-color: #f4f4f4;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        * {
             margin: 0;
-            background-color: var(--bg-color);
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #f0f8f0 0%, #e6f7e6 100%);
             color: #333;
+            padding: 20px;
+            line-height: 1.6;
         }
-
-        header {
-            background: linear-gradient(135deg, var(--dark-slate), #000);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-            border-bottom: 3px solid var(--primary-silver);
-        }
-
-        header h1 { margin: 0; font-size: 1.8rem; letter-spacing: 1px; }
-        header p { opacity: 0.8; font-size: 0.9rem; }
-
         .container {
             max-width: 1000px;
-            margin: 2rem auto;
-            padding: 0 20px;
+            margin: 0 auto;
         }
-
-        #news-container {
+        header {
+            text-align: center;
+            margin: 30px 0;
+            padding: 20px;
+            background: #1a5f23;
+            color: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        header p {
+            opacity: 0.9;
+            font-size: 18px;
+        }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            color: #1a5f23;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #eaeaea;
+            font-size: 24px;
+        }
+        .grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            gap: 25px;
+            margin: 20px 0;
         }
-
-        .news-card {
-            background: white;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
+        .card {
+            background: #f8fff8;
+            border-radius: 10px;
+            padding: 20px;
+            border-left: 4px solid #1a5f23;
         }
-
-        .news-card:hover { transform: translateY(-5px); }
-
-        .news-card img {
+        .card h3 {
+            color: #1a5f23;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        table {
             width: 100%;
-            height: 200px;
-            object-fit: cover;
-            background-color: var(--primary-silver);
+            border-collapse: collapse;
+            margin: 20px 0;
         }
-
-        .news-content { padding: 1.5rem; }
-        .news-content h3 { margin-top: 0; font-size: 1.2rem; color: var(--dark-slate); }
-        .news-content p { font-size: 0.9rem; line-height: 1.6; color: #666; }
-        
-        .read-more {
-            display: inline-block;
-            margin-top: 10px;
-            color: var(--accent-gold);
-            text-decoration: none;
+        th, td {
+            padding: 14px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+        th {
+            background-color: #e8f5e9;
+            color: #1a5f23;
+            font-weight: 600;
+        }
+        tr:nth-child(even) {
+            background-color: #f8fff8;
+        }
+        .plot-container {
+            width: 100%;
+            height: 450px;
+            background: #d7e8d2;
+            border: 2px solid #8bc34a;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+        }
+        .plot-label {
+            position: absolute;
             font-weight: bold;
+            color: #2e7d32;
+            background: rgba(255,255,255,0.85);
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 14px;
+            text-align: center;
+            min-width: 100px;
         }
-
-        .loader { text-align: center; font-size: 1.2rem; padding: 2rem; }
+        .greenhouse { background: #a5d6a7; }
+        .nursery { background: #81c784; }
+        .storage { background: #64b5f6; }
+        .water { background: #4fc3f7; }
+        .roads { background: #bdbdbd; }
+        .buffer { background: #fbc02d; }
+        .future { background: #f48fb1; }
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 15px;
+            justify-content: center;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+        }
+        .legend-color {
+            width: 24px;
+            height: 24px;
+            border-radius: 4px;
+        }
+        .highlight {
+            background: #e8f5e9;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 25px 0;
+            border-left: 4px solid #1a5f23;
+        }
+        .highlight h3 {
+            color: #1a5f23;
+            margin-top: 0;
+        }
+        footer {
+            text-align: center;
+            color: #666;
+            padding: 20px 0;
+            font-size: 14px;
+        }
+        @media (max-width: 600px) {
+            .plot-container {
+                height: 350px;
+            }
+            .section {
+                padding: 15px;
+            }
+            header h1 {
+                font-size: 24px;
+            }
+        }
     </style>
 </head>
 <body>
+    <div class="container">
+        <header>
+            <h1>Greenhouse Farming Plan for 50m x 100m Plot</h1>
+            <p>Commercial Agriculture in Nigeria | Optimized Layout & Financial Projections</p>
+        </header>
 
-<header>
-    <h1>O & J ENTERPRISE DYNAMICS</h1>
-    <p>STRATEGIC INNOVATION | NIGERIA LIVE NEWS</p>
-</header>
+        <!-- Land Assessment -->
+        <div class="section">
+            <h2>Land Assessment: 50m x 100m (5,000m²)</h2>
+            <p>A standard plot of land in Nigeria (50m x 100m = 5,000m²) is <strong>more than sufficient</strong> for a profitable commercial greenhouse operation. In fact, this size is considered ideal for beginners and medium-scale farmers.</p>
+            
+            <div class="highlight">
+                <h3>Key Advantages of This Plot Size</h3>
+                <ul style="margin-top: 15px; padding-left: 25px;">
+                    <li>Enough space for 2-3 commercial greenhouses (1,000-1,500m² each)</li>
+                    <li>Room for supporting infrastructure (nursery, storage, water system)</li>
+                    <li>Buffer zones to prevent pest migration from neighboring farms</li>
+                    <li>Future expansion capacity without acquiring additional land</li>
+                    <li>Optimal for accessing government agricultural support programs</li>
+                </ul>
+            </div>
+        </div>
 
-<div class="container">
-    <div id="news-container">
-        <div class="loader">Fetching the latest headlines from Nigeria...</div>
-    </div>
-</div>
+        <!-- Layout Plan -->
+        <div class="section">
+            <h2>Optimized Layout Plan</h2>
+            <p>This layout maximizes productivity while maintaining operational efficiency:</p>
+            
+            <div class="plot-container">
+                <!-- Roads (top and bottom) -->
+                <div class="roads" style="position: absolute; top: 0; left: 0; width: 100%; height: 10%;"></div>
+                <div class="roads" style="position: absolute; bottom: 0; left: 0; width: 100%; height: 10%;"></div>
+                <div class="plot-label" style="top: 2%; left: 5%;">Access Road</div>
+                
+                <!-- Greenhouse 1 -->
+                <div class="greenhouse" style="position: absolute; top: 12%; left: 5%; width: 40%; height: 60%;"></div>
+                <div class="plot-label" style="top: 15%; left: 15%;">Greenhouse 1<br>(2,000m²)</div>
+                
+                <!-- Greenhouse 2 -->
+                <div class="greenhouse" style="position: absolute; top: 12%; right: 5%; width: 40%; height: 60%;"></div>
+                <div class="plot-label" style="top: 15%; right: 25%;">Greenhouse 2<br>(2,000m²)</div>
+                
+                <!-- Nursery -->
+                <div class="nursery" style="position: absolute; top: 12%; left: 48%; width: 20%; height: 25%;"></div>
+                <div class="plot-label" style="top: 15%; left: 52%;">Nursery<br>(500m²)</div>
+                
+                <!-- Storage & Office -->
+                <div class="storage" style="position: absolute; top: 45%; left: 48%; width: 20%; height: 20%;"></div>
+                <div class="plot-label" style="top: 48%; left: 52%;">Storage & Office<br>(200m²)</div>
+                
+                <!-- Water System -->
+                <div class="water" style="position: absolute; top: 75%; left: 10%; width: 15%; height: 15%;"></div>
+                <div class="plot-label" style="top: 78%; left: 12%;">Borehole & Tank<br>(150m²)</div>
+                
+                <!-- Buffer Zone -->
+                <div class="buffer" style="position: absolute; top: 12%; right: 48%; width: 20%; height: 25%;"></div>
+                <div class="plot-label" style="top: 15%; right: 50%;">Buffer Zone<br>(Pest Control)</div>
+                
+                <!-- Future Expansion -->
+                <div class="future" style="position: absolute; top: 45%; right: 48%; width: 20%; height: 20%;"></div>
+                <div class="plot-label" style="top: 48%; right: 49%;">Future Expansion<br>(400m²)</div>
+            </div>
 
-<script>
-    const apiKey = 'd2239af68fe74125be535ecb45ad0c35';
-    // Using the 'top-headlines' endpoint specifically for Nigeria (country=ng)
-    const apiUrl = `https://newsapi.org/v2/top-headlines?country=ng&apiKey=${apiKey}`;
-
-    async function fetchNews() {
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-
-            if (data.status === "ok") {
-                displayNews(data.articles);
-            } else {
-                document.getElementById('news-container').innerHTML = `<p>Error: ${data.message}</p>`;
-            }
-        } catch (error) {
-            console.error("Error fetching news:", error);
-            document.getElementById('news-container').innerHTML = "<p>Unable to load news at this time.</p>";
-        }
-    }
-
-    function displayNews(articles) {
-        const container = document.getElementById('news-container');
-        container.innerHTML = ''; // Clear loader
-
-        articles.forEach(article => {
-            if (!article.title || article.title === "[Removed]") return;
-
-            const card = document.createElement('div');
-            card.className = 'news-card';
-
-            const imageUrl = article.urlToImage || 'https://via.placeholder.com/400x200?text=Nigeria+News';
-
-            card.innerHTML = `
-                <img src="${imageUrl}" alt="News Image">
-                <div class="news-content">
-                    <h3>${article.title}</h3>
-                    <p>${article.description || "Click below to read the full story on this developing news item."}</p>
-                    <a href="${article.url}" target="_blank" class="read-more">Read Full Story →</a>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #a5d6a7;"></div>
+                    <span>Greenhouse</span>
                 </div>
-            `;
-            container.appendChild(card);
-        });
-    }
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #81c784;"></div>
+                    <span>Nursery</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #64b5f6;"></div>
+                    <span>Storage</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #4fc3f7;"></div>
+                    <span>Water System</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #bdbdbd;"></div>
+                    <span>Access Roads</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #fbc02d;"></div>
+                    <span>Buffer Zone</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: #f48fb1;"></div>
+                    <span>Future Expansion</span>
+                </div>
+            </div>
+        </div>
 
-    fetchNews();
-</script>
+        <!-- Financial Projections -->
+        <div class="section">
+            <h2>Financial Projections (3-Year)</h2>
+            <p>Based on tomato cultivation (most profitable for beginners in Nigeria):</p>
+            
+            <table>
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Year 1 (₦)</th>
+                        <th>Year 2 (₦)</th>
+                        <th>Year 3 (₦)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Revenue</td>
+                        <td>8,400,000</td>
+                        <td>11,200,000</td>
+                        <td>14,000,000</td>
+                    </tr>
+                    <tr>
+                        <td>Operating Costs</td>
+                        <td>2,000,000</td>
+                        <td>2,400,000</td>
+                        <td>2,800,000</td>
+                    </tr>
+                    <tr>
+                        <td>Net Profit</td>
+                        <td>6,400,000</td>
+                        <td>8,800,000</td>
+                        <td>11,200,000</td>
+                    </tr>
+                    <tr>
+                        <td>Cumulative Cash Flow</td>
+                        <td>3,000,000</td>
+                        <td>11,800,000</td>
+                        <td>23,000,000</td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div class="highlight" style="margin-top: 25px;">
+                <h3>Startup Investment Breakdown (Total: ₦3.4M)</h3>
+                <ul style="margin-top: 15px; padding-left: 25px;">
+                    <li>Land Lease (1 year): ₦250,000</li>
+                    <li>Greenhouse Structure (4,000m²): ₦2,000,000</li>
+                    <li>Drip Irrigation System: ₦400,000</li>
+                    <li>Seeds & Seedlings: ₦150,000</li>
+                    <li>Fertilizers & Nutrients: ₦120,000</li>
+                    <li>Farm Tools & Equipment: ₦180,000</li>
+                    <li>Labour (3 months): ₦300,000</li>
+                </ul>
+            </div>
+        </div>
 
+        <!-- Recommended Crops -->
+        <div class="section">
+            <h2>Recommended Crops for Beginners</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🍅 Tomatoes</h3>
+                    <p><strong>Cycle:</strong> 3 months</p>
+                    <p><strong>Yield:</strong> 3,000-4,000 kg per 500m²</p>
+                    <p><strong>Market Price:</strong> ₦300-₦500/kg</p>
+                    <p><strong>Monthly Revenue:</strong> ₦900,000-₦2M</p>
+                </div>
+                <div class="card">
+                    <h3>🥒 Cucumbers</h3>
+                    <p><strong>Cycle:</strong> 2.5 months</p>
+                    <p><strong>Yield:</strong> 2,500-3,500 kg per 500m²</p>
+                    <p><strong>Market Price:</strong> ₦400-₦600/kg</p>
+                    <p><strong>Monthly Revenue:</strong> ₦1M-₦2.1M</p>
+                </div>
+                <div class="card">
+                    <h3>🫑 Sweet Peppers</h3>
+                    <p><strong>Cycle:</strong> 4 months</p>
+                    <p><strong>Yield:</strong> 2,000-3,000 kg per 500m²</p>
+                    <p><strong>Market Price:</strong> ₦500-₦800/kg</p>
+                    <p><strong>Monthly Revenue:</strong> ₦1M-₦2.4M</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px;"><strong>Recommendation:</strong> Start with tomatoes or cucumbers as they have shorter cycles and consistent market demand in Nigeria.</p>
+        </div>
+
+        <!-- Funding Options -->
+        <div class="section">
+            <h2>Funding Options in Nigeria</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>🏦 Bank of Industry (BOI)</h3>
+                    <p>AGSMEIS loan up to ₦10M at 5% interest</p>
+                    <p>Requires free training certificate from BOI/NIRSAL</p>
+                </div>
+                <div class="card">
+                    <h3>💧 NIRSAL Microfinance Bank</h3>
+                    <p>Collateral-free agricultural loans</p>
+                    <p>Farm location verification required</p>
+                </div>
+                <div class="card">
+                    <h3>🌱 State ADPs</h3>
+                    <p>Subsidized inputs and grants</p>
+                    <p>Available through agricultural development programs</p>
+                </div>
+            </div>
+            <p style="margin-top: 20px;">All options require a simple business plan with financial projections (like the one above).</p>
+        </div>
+
+        <footer>
+            <p>Greenhouse Farming in Nigeria | Plot Size: 50m x 100m (5,000m²) | Optimized for Commercial Success</p>
+        </footer>
+    </div>
 </body>
 </html>
