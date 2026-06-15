@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Official Department of Defense Correspondence</title>
+    <title>Engagement Payment Invoice</title>
     <style>
         body {
             font-family: 'Times New Roman', Times, serif;
@@ -14,9 +14,36 @@
             padding: 0;
         }
 
+        /* Action bar for the download button */
+        .action-bar {
+            max-width: 850px;
+            margin: 20px auto 0 auto;
+            padding: 0 20px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .download-btn {
+            background-color: #002060;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            border-radius: 4px;
+            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            transition: background-color 0.2s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #00143a;
+        }
+
         .letter-container {
             max-width: 850px;
-            margin: 40px auto;
+            margin: 20px auto 40px auto;
             background: #ffffff;
             padding: 60px 80px;
             border: 1px solid #d3d3d3;
@@ -25,7 +52,7 @@
             box-sizing: border-box;
         }
 
-        /* Watermark Background */
+        /* Adjusted Watermark Background: Larger (550px) and More Visible (0.09 opacity) */
         .letter-container::before {
             content: "";
             position: absolute;
@@ -36,8 +63,8 @@
             background-image: url('https://res.cloudinary.com/dpghsritm/image/upload/v1781543741/images_rdnnhp.jpg');
             background-repeat: no-repeat;
             background-position: center 55%;
-            background-size: 380px;
-            opacity: 0.04;
+            background-size: 550px;
+            opacity: 0.09;
             pointer-events: none;
         }
 
@@ -48,7 +75,7 @@
             justify-content: space-between;
             border-bottom: 3px double #002060;
             padding-bottom: 20px;
-            margin-bottom: 45px;
+            margin-bottom: 30px;
         }
 
         /* Prominent, clean logos */
@@ -89,9 +116,26 @@
             font-style: italic;
         }
 
+        /* Professional Document Title Banner */
+        .document-title-container {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .document-title {
+            font-size: 22px;
+            font-weight: bold;
+            color: #002060;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid #d3d3d3;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+
         /* Formal layout spacing */
         .letter-spacing-space {
-            height: 35px;
+            height: 15px;
         }
 
         .salutation {
@@ -116,6 +160,8 @@
             padding: 18px 25px;
             margin: 40px 20px;
             border-radius: 4px;
+            position: relative; 
+            z-index: 1;
         }
 
         .payment-label {
@@ -165,47 +211,57 @@
             color: #444444;
         }
 
+        /* Print Settings optimization */
         @media print {
             body {
                 background-color: #ffffff;
             }
+            .action-bar {
+                display: none; /* Hides the download button on the final PDF document */
+            }
             .letter-container {
                 border: none;
                 box-shadow: none;
-                padding: 40px 40px;
+                padding: 0;
                 margin: 0;
+            }
+            @page {
+                size: auto;
+                margin: 20mm; /* Sets professional printable margins for the document page */
             }
         }
     </style>
 </head>
 <body>
 
+<div class="action-bar">
+    <button class="download-btn" onclick="window.print()">Download as PDF</button>
+</div>
+
 <div class="letter-container">
     
-    <!-- Professional Command Letterhead -->
     <header class="official-header">
-        <!-- Logo 1 (Left Side - Resized Larger) -->
         <img class="header-logo" src="https://res.cloudinary.com/dpghsritm/image/upload/v1781543741/images_rdnnhp.jpg" alt="Department Seal Left">
         
-        <!-- Official Decoded Header Data -->
         <div class="header-text">
             <div class="agency-title">U.S. Department of Defense</div>
             <div class="agency-sub">1400 Defense Pentagon, Washington, DC 20301-1400</div>
             <div class="agency-address">Public Communications - DoD Public Affairs</div>
         </div>
         
-        <!-- Logo 2 (Right Side - Resized Larger to Match) -->
         <img class="header-logo" src="https://res.cloudinary.com/dpghsritm/image/upload/v1781543304/american-military-emblem-vector-illustration_654521-69_ya90y7.avif" alt="Military Emblem Right">
     </header>
 
-    <div class="letter-spacing-space"></div>
-
-    <!-- Salutation -->
-    <div class="salutation">
-        Dear Sir,
+    <div class="document-title-container">
+        <div class="document-title">Engagement Payment Invoice</div>
     </div>
 
-    <!-- Letter Body -->
+    <div class="letter-spacing-space"></div>
+
+    <div class="salutation">
+        Dear Ma,
+    </div>
+
     <div class="letter-body">
         <p>
             To proceed with the engagement process, the required engagement payment of $1,050 must be completed first. This payment is a necessary part of the process and allows us to initiate and finalize all required arrangements on your behalf.
@@ -221,13 +277,11 @@
         </p>
     </div>
 
-    <!-- Verified Payment Designation -->
     <div class="payment-container">
         <div class="payment-label">Official Bitcoin Routing Address:</div>
         <div class="bitcoin-address">12QYgKC7MvqWZK5zfb6eJFQD7iLE8aDVuz</div>
     </div>
 
-    <!-- Signature Authority -->
     <div class="closing-section">
         <div class="sign-off">
             Best regards,
