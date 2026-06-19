@@ -1,1 +1,472 @@
-123
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GarrisonGrub | Tactical Bulk Food Supply</title>
+    <!-- Tailwind CSS v4 Play CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Lucide Icons Library -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style type="text/tailwindcss">
+        @theme {
+            --color-tactical-bg: #0f1411;
+            --color-tactical-card: #181f1b;
+            --color-tactical-green: #2e3f35;
+            --color-tactical-border: #3d5246;
+            --color-military-gold: #c39b4f;
+            --color-military-gold-hover: #dec187;
+        }
+    </style>
+</head>
+<body class="bg-tactical-bg text-gray-100 font-sans antialiased selection:bg-military-gold selection:text-black">
+
+    <!-- TOP NAVIGATION BAR -->
+    <nav class="border-b border-tactical-border bg-tactical-card sticky top-0 z-40 backdrop-blur-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="p-2 bg-tactical-green rounded border border-tactical-border text-military-gold">
+                    <i data-lucide="shield"></i>
+                </div>
+                <div>
+                    <span class="text-xl font-black tracking-wider text-white block uppercase">GarrisonGrub</span>
+                    <span class="text-xs tracking-widest text-military-gold block font-mono uppercase">Bulk Provisioning // USA</span>
+                </div>
+            </div>
+            
+            <button onclick="toggleCart()" class="relative flex items-center space-x-2 bg-tactical-green border border-tactical-border hover:border-military-gold px-4 py-2 rounded transition group cursor-pointer">
+                <i data-lucide="shopping-cart" class="w-5 h-5 text-gray-300 group-hover:text-military-gold"></i>
+                <span class="font-mono text-sm font-bold text-white" id="cart-btn-total">$0.00</span>
+                <span class="absolute -top-2 -right-2 bg-military-gold text-black text-xs font-black rounded-full w-5 h-5 flex items-center justify-between justify-center" id="cart-count">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- HERO SECTION -->
+    <header class="relative bg-gradient-to-b from-tactical-card to-tactical-bg border-b border-tactical-border overflow-hidden py-16 sm:py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+            <div class="inline-flex items-center space-x-2 bg-tactical-green/50 border border-tactical-border px-3 py-1 rounded-full text-xs font-mono text-military-gold uppercase tracking-widest mb-6">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span>Active Duty Bulk Mess Logistics</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-white uppercase max-w-4xl mx-auto leading-none">
+                Platoon-Scale Provisions.<br><span class="text-military-gold">Bitcoin Settlement.</span>
+            </h1>
+            <p class="mt-6 text-lg text-gray-400 max-w-2xl mx-auto font-medium">
+                High-calorie tactical bundles, base unit deployment catering, and macro-counted training nutrition. Enforced single transactions from <strong class="text-white">$500 minimum to $2,500 maximum</strong>. Securely dispatched to coordinates or base grids.
+            </p>
+            <div class="mt-10 flex justify-center gap-4 font-mono text-xs text-gray-400">
+                <div class="flex items-center space-x-1.5"><i data-lucide="shield-check" class="w-4 h-4 text-military-gold"></i> <span>FED-COMPLIANT</span></div>
+                <div class="text-tactical-border">•</div>
+                <div class="flex items-center space-x-1.5"><i data-lucide="bitcoin" class="w-4 h-4 text-amber-500"></i> <span>BTC NATIVE</span></div>
+                <div class="text-tactical-border">•</div>
+                <div class="flex items-center space-x-1.5"><i data-lucide="truck" class="w-4 h-4 text-military-gold"></i> <span>CONUS/OCONUS FREIGHT</span></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN PRODUCT SYSTEM -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <h2 class="text-xs font-mono uppercase tracking-widest text-military-gold mb-8 flex items-center gap-2">
+            <i data-lucide="layers" class="w-4 h-4"></i> Operational Menu Matrix
+        </h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6" id="product-grid">
+            <!-- Rendered by JS dynamic arrays -->
+        </div>
+    </main>
+
+    <!-- SLIDE-OVER SIDEBAR CART -->
+    <div id="cart-sidebar" class="fixed inset-0 z-50 overflow-hidden hidden">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm transition-opacity" onclick="toggleCart()"></div>
+        <div class="absolute inset-y-0 right-0 max-w-full flex pl-10">
+            <div class="w-screen max-w-md bg-tactical-card border-l border-tactical-border flex flex-col shadow-2xl">
+                <!-- Header -->
+                <div class="p-6 border-b border-tactical-border flex items-center justify-between">
+                    <div class="flex items-center space-x-2">
+                        <i data-lucide="package" class="text-military-gold w-5 h-5"></i>
+                        <h3 class="font-mono uppercase font-black text-white tracking-wider">Unit Manifest</h3>
+                    </div>
+                    <button onclick="toggleCart()" class="text-gray-400 hover:text-white p-1 rounded border border-transparent hover:border-tactical-border cursor-pointer">
+                        <i data-lucide="x" class="w-5 h-5"></i>
+                    </button>
+                </div>
+
+                <!-- Items Container -->
+                <div class="flex-1 overflow-y-auto p-6 space-y-4" id="cart-items-container">
+                    <!-- Dynamic rendering -->
+                </div>
+
+                <!-- Footer Summary Box -->
+                <div class="p-6 border-t border-tactical-border bg-tactical-bg space-y-4 font-mono">
+                    <div class="flex justify-between text-sm text-gray-400">
+                        <span>Min Threshold:</span>
+                        <span>$500.00</span>
+                    </div>
+                    <div class="flex justify-between text-sm text-gray-400">
+                        <span>Max Threshold:</span>
+                        <span>$2,500.00</span>
+                    </div>
+                    <div class="border-t border-dashed border-tactical-border pt-3 flex justify-between text-white font-bold text-lg">
+                        <span>Total Valuation:</span>
+                        <span id="cart-total-usd">$0.00</span>
+                    </div>
+
+                    <!-- System Warnings for Constraints -->
+                    <div id="constraint-warning" class="hidden p-3 bg-red-950/40 border border-red-800 text-red-300 text-xs rounded space-y-1">
+                        <div class="flex items-center gap-1.5 font-bold uppercase"><i data-lucide="triangle-alert" class="w-4 h-4"></i> Error: Limits Violated</div>
+                        <p id="warning-message"></p>
+                    </div>
+
+                    <button id="checkout-button" onclick="openCheckout()" disabled class="w-full py-4 text-center text-sm uppercase font-black tracking-widest rounded transition cursor-pointer disabled:opacity-40 disabled:cursor-not-allowed bg-military-gold text-black hover:bg-military-gold-hover">
+                        Proceed to BTC Settlement
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CRYPTO CRYPTO CHECKOUT MODAL -->
+    <div id="checkout-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 hidden">
+        <div class="absolute inset-0 bg-black/80 backdrop-blur-md"></div>
+        <div class="relative bg-tactical-card border border-tactical-border max-w-lg w-full rounded shadow-2xl p-6 font-mono overflow-hidden">
+            
+            <div id="modal-payment-screen" class="space-y-6">
+                <div class="text-center border-b border-tactical-border pb-4">
+                    <h3 class="text-lg font-black text-white uppercase tracking-wider">Secure Bitcoin Gateway</h3>
+                    <p class="text-xs text-gray-400 mt-1">Rate guaranteed for <span id="timer" class="text-amber-500 font-bold">15:00</span> minutes</p>
+                </div>
+
+                <!-- Exchange Conversion Pricing Frame -->
+                <div class="bg-tactical-bg border border-tactical-border p-4 rounded text-center space-y-1">
+                    <div class="text-xs text-gray-400 uppercase tracking-wider">Amount Due In Crypto</div>
+                    <div class="text-2xl font-black text-amber-500 flex items-center justify-center gap-1.5">
+                        <i data-lucide="bitcoin" class="w-6 h-6"></i> <span id="modal-btc-amount">0.000000</span> BTC
+                    </div>
+                    <div class="text-xs text-gray-400" id="modal-usd-amount">Equal to: $0.00 USD</div>
+                </div>
+
+                <!-- Simulated Destination QR Box -->
+                <div class="flex justify-center">
+                    <div class="bg-white p-3 rounded border-4 border-tactical-green">
+                        <!-- Simulated QR Code visual block inside DOM -->
+                        <div class="w-40 h-40 flex flex-wrap bg-white" style="image-rendering: pixelated;">
+                            <div class="w-full h-full flex items-center justify-center bg-gray-100 text-black font-mono font-bold text-center text-xs p-2 border border-dashed border-gray-400">
+                                [ SECURE MOCK QR CORE GENERATED ]
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Payload Destination Wallet Fields -->
+                <div class="space-y-2">
+                    <label class="text-xs uppercase text-gray-400 block font-bold">Base Escrow BTC Address</label>
+                    <div class="flex bg-tactical-bg border border-tactical-border rounded overflow-hidden text-xs">
+                        <input type="text" readonly value="bc1qgarrison500to2500maxgrub2026secured" class="bg-transparent flex-1 px-3 py-3 text-gray-300 select-all outline-none">
+                        <button onclick="alert('Address copied to tactical clipboard')" class="bg-tactical-green px-4 border-l border-tactical-border text-military-gold hover:text-white cursor-pointer transition">
+                            <i data-lucide="copy" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Interactive Verification Trigger -->
+                <div class="pt-2 flex gap-3">
+                    <button onclick="closeCheckout()" class="flex-1 py-3 border border-tactical-border text-gray-400 text-xs rounded uppercase font-bold hover:bg-tactical-green hover:text-white transition cursor-pointer">
+                        Abort Request
+                    </button>
+                    <button onclick="simulatePayment()" class="flex-1 py-3 bg-amber-500 text-black text-xs font-black rounded uppercase tracking-widest hover:bg-amber-400 transition cursor-pointer">
+                        Verify On-Chain
+                    </button>
+                </div>
+            </div>
+
+            <!-- SUCCESS STATE SCREEN (Hidden until execution verification triggers) -->
+            <div id="modal-success-screen" class="hidden text-center py-8 space-y-6">
+                <div class="w-16 h-16 bg-emerald-950 border-2 border-emerald-500 rounded-full flex items-center justify-center mx-auto text-emerald-400 animate-bounce">
+                    <i data-lucide="check-circle-2" class="w-10 h-10"></i>
+                </div>
+                <div class="space-y-2">
+                    <h3 class="text-xl font-black text-white uppercase tracking-wider">Transmission Complete</h3>
+                    <p class="text-xs text-emerald-400 font-bold">Payment TX Settled via Block Ledger</p>
+                    <p class="text-sm text-gray-400 max-w-sm mx-auto pt-2">
+                        Your bulk order has been securely locked into our logistics system. Rations are transferring to dispatch queues for transport delivery.
+                    </p>
+                </div>
+                <div class="bg-tactical-bg border border-tactical-border p-3 rounded text-left text-xs text-mono text-gray-400 space-y-1">
+                    <div><strong>Logistics Dispatch ID:</strong> GRUB-TX-99831</div>
+                    <div><strong>Destination Grid:</strong> System Authorized Active Base</div>
+                </div>
+                <button onclick="resetApp()" class="w-full py-3 bg-tactical-green border border-tactical-border text-white text-xs uppercase font-bold tracking-widest rounded hover:border-military-gold transition cursor-pointer">
+                    Return to Mission Operations
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- CORE LOGIC ENGINE (JAVASCRIPT) -->
+    <script>
+        // Database Matrix array for Bulk Provision Units
+        const products = [
+            {
+                id: "mre-alpha",
+                category: "MRE & Tactical Packs",
+                name: "Alpha Platoons Field MRE Bundle",
+                price: 550.00,
+                calories: "120,000 Total kcal",
+                desc: "30-day tactical long shelf-life allocation crates configured with self-heating structural modules.",
+                icon: "shield-alert"
+            },
+            {
+                id: "mre-bravo",
+                category: "MRE & Tactical Packs",
+                name: "Sustainment Combat Operational Pack",
+                price: 980.00,
+                calories: "245,000 Total kcal",
+                desc: "Heavy volume shelf-stable reserve storage units complete with enhanced hydration component matrices.",
+                icon: "box"
+            },
+            {
+                id: "catering-charlie",
+                category: "Base Unit Catering",
+                name: "Company Spread Hot BBQ Asset",
+                price: 850.00,
+                calories: "Fresh Hot Prep Stack",
+                desc: "Smoked brisket pans, high-protein links, bulk carbohydrates, and corn biscuits structured to feed 45 troops.",
+                icon: "utensils"
+            },
+            {
+                id: "catering-delta",
+                category: "Base Unit Catering",
+                name: "Garrison Battalion Festivity Banquet",
+                price: 1650.00,
+                calories: "Fresh Full Base Load",
+                desc: "Premium operational hot kitchen mobilization package. Carved steak pans and roasted vegetable arrays.",
+                icon: "users"
+            },
+            {
+                id: "fitness-echo",
+                category: "High-Performance Fitness",
+                name: "Tactical Athlete Core Macro Engine",
+                price: 650.00,
+                calories: "Lean Build High Protein",
+                desc: "60 individual flash-frozen nutrient clean tubs. Tailored profile targets for optimal lean physical output.",
+                icon: "dumbbell"
+            },
+            {
+                id: "fitness-foxtrot",
+                category: "High-Performance Fitness",
+                name: "Ranger Selection Carb-Load Grid",
+                price: 1100.00,
+                calories: "High-Density Glycogen Load",
+                desc: "Bulk array engineered for sustained stamina outputs during heavy physical testing structures.",
+                icon: "zap"
+            },
+            {
+                id: "officer-gold",
+                category: "Custom Officer's Mess",
+                name: "Premium Command Center Dining Array",
+                price: 1400.00,
+                calories: "Gourmet Event Standard",
+                desc: "Aged Ribeye selections and prime seafood assets configured for executive leadership events.",
+                icon: "award"
+            },
+            {
+                id: "officer-platinum",
+                category: "Custom Officer's Mess",
+                name: "Joint Chiefs Flag Officer Gala Package",
+                price: 2450.00,
+                calories: "Maximum Tier Catering",
+                desc: "The absolute highest specification culinary spread available. Full delivery framework and premium selection sets.",
+                icon: "crown"
+            }
+        ];
+
+        let cart = {};
+        const MIN_ORDER = 500;
+        const MAX_ORDER = 2500;
+        let countdownInterval;
+
+        // Initialize Application Grid Layout Dynamic Rendering
+        function renderCatalog() {
+            const grid = document.getElementById('product-grid');
+            grid.innerHTML = products.map(p => `
+                <div class="bg-tactical-card border border-tactical-border rounded overflow-hidden flex flex-col group hover:border-military-gold transition duration-300">
+                    <div class="p-5 border-b border-tactical-border bg-tactical-bg flex justify-between items-start">
+                        <span class="text-[10px] font-mono tracking-widest uppercase text-military-gold">${p.category}</span>
+                        <div class="text-gray-500 group-hover:text-military-gold transition"><i data-lucide="${p.icon || 'package'}" class="w-4 h-4"></i></div>
+                    </div>
+                    <div class="p-5 flex-1 flex flex-col justify-between space-y-4">
+                        <div class="space-y-2">
+                            <h3 class="text-white font-bold tracking-tight text-base uppercase leading-snug">${p.name}</h3>
+                            <p class="text-xs text-gray-400 line-clamp-3">${p.desc}</p>
+                        </div>
+                        <div class="space-y-4 pt-2">
+                            <div class="flex items-center justify-between font-mono text-xs">
+                                <span class="text-gray-500">${p.calories}</span>
+                                <span class="text-white font-black text-lg">$${p.price.toFixed(2)}</span>
+                            </div>
+                            <button onclick="addToCart('${p.id}')" class="w-full bg-tactical-green border border-tactical-border hover:bg-military-gold hover:text-black hover:border-military-gold text-white font-mono text-xs font-bold py-2.5 rounded transition uppercase tracking-wider cursor-pointer">
+                                Add To Unit Order
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+            lucide.createIcons();
+        }
+
+        // State Machine Management Functions
+        function toggleCart() {
+            const sidebar = document.getElementById('cart-sidebar');
+            sidebar.classList.toggle('hidden');
+        }
+
+        function addToCart(id) {
+            cart[id] = (cart[id] || 0) + 1;
+            updateCartMetrics();
+        }
+
+        function updateQuantity(id, change) {
+            if (!cart[id]) return;
+            cart[id] += change;
+            if (cart[id] <= 0) delete cart[id];
+            updateCartMetrics();
+        }
+
+        function calculateCartTotal() {
+            return Object.keys(cart).reduce((total, id) => {
+                const prod = products.find(p => p.id === id);
+                return total + (prod ? prod.price * cart[id] : 0);
+            }, 0);
+        }
+
+        function updateCartMetrics() {
+            const totalUSD = calculateCartTotal();
+            const itemCount = Object.values(cart).reduce((sum, q) => sum + q, 0);
+
+            // Nav Bar Update strings
+            document.getElementById('cart-btn-total').innerText = `$${totalUSD.toFixed(2)}`;
+            document.getElementById('cart-count').innerText = itemCount;
+
+            // Render Layout Context details inside sliding drawer
+            const itemsContainer = document.getElementById('cart-items-container');
+            document.getElementById('cart-total-usd').innerText = `$${totalUSD.toFixed(2)}`;
+
+            if (itemCount === 0) {
+                itemsContainer.innerHTML = `
+                    <div class="h-full flex flex-col items-center justify-center text-center space-y-2 py-12 text-gray-500 font-mono text-xs">
+                        <i data-lucide="archive" class="w-8 h-8 text-tactical-border"></i>
+                        <p>MANIFEST EMPTY.<br>ADD BULK ITEMS TO GENERATE ORDER.</p>
+                    </div>
+                `;
+                lucide.createIcons();
+                document.getElementById('checkout-button').disabled = true;
+                document.getElementById('constraint-warning').classList.add('hidden');
+                return;
+            }
+
+            itemsContainer.innerHTML = Object.keys(cart).map(id => {
+                const p = products.find(prod => prod.id === id);
+                if (!p) return '';
+                return `
+                    <div class="bg-tactical-bg border border-tactical-border p-3 rounded flex items-center justify-between font-mono text-xs">
+                        <div class="space-y-1 flex-1 pr-3">
+                            <div class="text-white font-bold uppercase truncate max-w-[200px]">${p.name}</div>
+                            <div class="text-military-gold">$${(p.price * cart[id]).toFixed(2)}</div>
+                        </div>
+                        <div class="flex items-center border border-tactical-border bg-tactical-card rounded">
+                            <button onclick="updateQuantity('${p.id}', -1)" class="px-2.5 py-1 text-gray-400 hover:text-white cursor-pointer">-</button>
+                            <span class="px-2 text-white font-bold">${cart[id]}</span>
+                            <button onclick="updateQuantity('${p.id}', 1)" class="px-2.5 py-1 text-gray-400 hover:text-white cursor-pointer">+</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Operational Boundary Logic Enforcement Execution
+            const checkoutBtn = document.getElementById('checkout-button');
+            const warningBox = document.getElementById('constraint-warning');
+            const warningMsg = document.getElementById('warning-message');
+
+            if (totalUSD < MIN_ORDER) {
+                warningBox.classList.remove('hidden');
+                warningMsg.innerText = `Current total is under minimal parameters. You require $${(MIN_ORDER - totalUSD).toFixed(2)} more to validate operations.`;
+                checkoutBtn.disabled = true;
+            } else if (totalUSD > MAX_ORDER) {
+                warningBox.classList.remove('hidden');
+                warningMsg.innerText = `Current total exceeds strict tactical allowances. Reduce manifest volume by $${(totalUSD - MAX_ORDER).toFixed(2)}.`;
+                checkoutBtn.disabled = true;
+            } else {
+                warningBox.classList.add('hidden');
+                checkoutBtn.disabled = false;
+            }
+        }
+
+        // Crypto Invoicing Interface Logic Handling
+        function openCheckout() {
+            const totalUSD = calculateCartTotal();
+            // Static mock calculation metric logic base reference for ($65,000 BTC standard rule index)
+            const btcValue = totalUSD / 65000;
+
+            document.getElementById('modal-usd-amount').innerText = `Equal to: $${totalUSD.toFixed(2)} USD`;
+            document.getElementById('modal-btc-amount').innerText = btcValue.toFixed(6);
+
+            // Interface Screen States Setup
+            document.getElementById('modal-payment-screen').classList.remove('hidden');
+            document.getElementById('modal-success-screen').classList.add('hidden');
+            document.getElementById('checkout-modal').classList.remove('hidden');
+
+            startModalTimer(15 * 60);
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkout-modal').classList.add('hidden');
+            clearInterval(countdownInterval);
+        }
+
+        function startModalTimer(duration) {
+            clearInterval(countdownInterval);
+            let timer = duration, minutes, seconds;
+            const display = document.getElementById('timer');
+            
+            countdownInterval = setInterval(() => {
+                minutes = parseInt(timer / 60, 10);
+                seconds = parseInt(timer % 60, 10);
+
+                minutes = minutes < 10 ? "0" + minutes : minutes;
+                seconds = seconds < 10 ? "0" + seconds : seconds;
+
+                display.innerText = minutes + ":" + seconds;
+
+                if (--timer < 0) {
+                    clearInterval(countdownInterval);
+                    alert("BTC Rate Expired. Re-authenticating manifest total thresholds.");
+                    closeCheckout();
+                }
+            }, 1000);
+        }
+
+        function simulatePayment() {
+            clearInterval(countdownInterval);
+            // Switch structural inner frames view inside modal panel
+            document.getElementById('modal-payment-screen').classList.add('hidden');
+            document.getElementById('modal-success-screen').classList.remove('hidden');
+        }
+
+        function resetApp() {
+            cart = {};
+            updateCartMetrics();
+            closeCheckout();
+            if(!document.getElementById('cart-sidebar').classList.contains('hidden')) {
+                toggleCart();
+            }
+        }
+
+        // Bootstrap App Launch execution
+        window.onload = () => {
+            renderCatalog();
+        };
+    </script>
+</body>
+</html>
